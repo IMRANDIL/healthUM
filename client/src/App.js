@@ -1,14 +1,18 @@
 import React from "react";
-import { Button } from "antd";
-function App() {
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+const App = () => {
   return (
-    <div className="App my-1">
-      <Button className="my-2" type="primary">
-        Primary Button
-      </Button>
-      <h1>Hi Ali what is up</h1>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
