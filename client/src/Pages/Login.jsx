@@ -9,7 +9,7 @@ const Login = () => {
   return (
     <div className="auth">
       <div className="authForm card p-4">
-        <h1 className="card_title">Nice to meet u :)</h1>
+        <h1 className="card_title">Welcome Back :)</h1>
         <Form layout="vertical" onFinish={handleFinish}>
           <Form.Item label="Email" name="email">
             <Input placeholder="Email" />
