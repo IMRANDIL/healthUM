@@ -1,9 +1,21 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 const Signup = () => {
-  const handleFinish = (values) => {
-    console.log("value of form ", values);
+  const handleFinish = async (values) => {
+    try {
+      const response = await axios.post("/api/user/signup", values);
+      if (response.data.success) {
+        toast.success(response.data.msg);
+      } else {
+        toast.error(response.data.msg);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error);
+    }
   };
 
   return (
