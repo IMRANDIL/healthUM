@@ -11,14 +11,14 @@ const Login = () => {
     }
     try {
       const response = await axios.post("/api/user/login", values);
-      if (response.data.success === true) {
+      if (response.data.success) {
         toast.success(response.data.msg);
+        localStorage.setItem("token", response.data.token);
         return navigate("/");
       } else {
         return toast.error(response.data.msg);
       }
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.msg);
     }
   };
