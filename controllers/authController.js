@@ -35,31 +35,29 @@ class Auth {
   };
 
   signupController = async (req, res, next) => {
-    const { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
+    if (!req.body.name || !req.body.email || !req.body.password) {
       return res
         .status(400)
-        .send({ msg: `All Fields are required!`, success: false });
+        .json({ msg: `All Fields are required!`, success: false });
     }
 
     try {
-      const user = await User.findOne({ email: email.toLowerCase() });
+      const user = await User.findOne({ email: req.body.email.toLowerCase() });
       if (user) {
         return res
           .status(400)
-          .send({ msg: `User Already Exists!`, success: false });
+          .json({ msg: `User Already Exists!`, success: false });
       }
-      const hashPassword = await bcrypt.hash(password, 12);
+      const hashPassword = await bcrypt.hash(req.body.password, 12);
       await User.create({
-        name: name,
-        email: email,
+        name: req.body.name,
+        email: req.body.email,
         password: hashPassword,
       });
-      res.status(201).send({ msg: "Signup successful!", success: true });
+      res.status(201).json({ msg: "Signup successful!", success: true });
     } catch (error) {
       console.log(error);
-      res.status(500).send({ msg: error, success: false });
+      res.status(500).json({ msg: "Something went Wrong", success: false });
     }
   };
 }
