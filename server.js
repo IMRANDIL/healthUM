@@ -7,4 +7,4 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/signup", require("./routes/authRoute"));
+app.use("/api/user", require("./routes/authRoute"));
