@@ -3,21 +3,22 @@ const bcrypt = require("bcrypt");
 
 class Auth {
   loginController = async (req, res, next) => {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
+    if (!req.body.email || !req.body.password) {
       return res
         .status(400)
         .send({ msg: "All Fields required!", success: false });
     }
     try {
-      const user = await User.findOne({ email: email.toLowerCase() });
+      const user = await User.findOne({ email: req.body.email.toLowerCase() });
       if (!user) {
         return res
           .status(404)
           .send({ msg: "User does not exist!", success: false });
       }
-      const isPasswordMatch = await bcrypt.compare(password, user.password);
+      const isPasswordMatch = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
       if (!isPasswordMatch) {
         return res
           .status(400)
