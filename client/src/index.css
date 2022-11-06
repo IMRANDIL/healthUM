@@ -4,7 +4,6 @@
 
 *{
     font-family: 'Montserrat', sans-serif !important;
-    
 
 }
 
@@ -78,6 +77,7 @@ label{
     font-size: 16px !important;
     display: block !important;
     margin-top: 8px !important;
+   
 }
 
 .anchor:hover{
@@ -93,10 +93,13 @@ label{
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color:#005555;
+   
 }
 
 .authForm{
     width: 400px;
+  
 }
 
 
