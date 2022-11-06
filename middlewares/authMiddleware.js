@@ -8,7 +8,7 @@ exports.authMiddleware = async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      token = req.headers.authorization?.split(" ")[1];
+      token = req.headers?.authorization?.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id).select("-password");
       next();
@@ -23,6 +23,7 @@ exports.authMiddleware = async (req, res, next) => {
   if (!token) {
     res.status(401).json({
       msg: "Authorization Failed, No Token",
+      success: false,
     });
   }
 };
