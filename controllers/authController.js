@@ -36,7 +36,7 @@ class Auth {
         email: user.email,
         success: true,
         msg: "Login Successful!",
-        token: jwtToken
+        token: jwtToken,
       });
     } catch (error) {
       console.log(error);
@@ -68,6 +68,33 @@ class Auth {
     } catch (error) {
       console.log(error);
       res.status(500).json({ msg: "Something went Wrong", success: false });
+    }
+  };
+
+  getUserInfoController = async (req, res, next) => {
+    try {
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({
+          msg: "User Not Found!",
+          success: false,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        user: {
+          name: user.name,
+          email: user.email,
+          _id: user._id,
+          createdAt: user.createdAt,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        msg: "Something Went wrong",
+        success: false,
+      });
     }
   };
 }
