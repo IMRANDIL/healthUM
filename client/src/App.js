@@ -3,14 +3,45 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";
+import { useSelector } from "react-redux";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import PublicRoute from "./components/PublicRoute";
 const App = () => {
+  const { loading } = useSelector((state) => state.alerts);
   return (
     <div className="appContainer">
       <BrowserRouter>
+        {loading && (
+          <div className="spinner-parent">
+            <div className="spinner-border text-primary" role="status"></div>
+          </div>
+        )}
+
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoutes>
+                <Home />
+              </ProtectedRoutes>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

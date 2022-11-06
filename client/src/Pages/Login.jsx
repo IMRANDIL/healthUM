@@ -1,16 +1,21 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../Redux/alertsSlice";
 import toast from "react-hot-toast";
 import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleFinish = async (values) => {
     if (!values.email || !values.password) {
       return toast.error("All Fields required!");
     }
     try {
+      dispatch(showLoading());
       const response = await axios.post("/api/user/login", values);
+      dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.msg);
         localStorage.setItem("token", response.data.token);
@@ -19,6 +24,7 @@ const Login = () => {
         return toast.error(response.data.msg);
       }
     } catch (error) {
+      dispatch(hideLoading());
       toast.error(error.response.data.msg);
     }
   };
