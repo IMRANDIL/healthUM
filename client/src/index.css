@@ -59,6 +59,7 @@ label{
 .card{
     box-shadow: 0 0 2px gray;
     /* border-radius: 0 !important; */
+   
 }
 
 .primaryButton{
@@ -95,12 +96,15 @@ label{
     justify-content: center;
     background-color:#005555;
    
+   
 }
 
 .authForm{
     width: 400px;
   
+  
 }
+
 
 
 .auth .card_title{
