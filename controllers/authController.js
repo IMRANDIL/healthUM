@@ -29,7 +29,7 @@ class Auth {
         { id: user._id },
         process.env.JWT_SECRET,
         {
-          expiresIn: "1d",
+          expiresIn: "30s",
         }
       );
       res.status(200).json({
