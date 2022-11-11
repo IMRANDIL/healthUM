@@ -10,7 +10,7 @@ const ProtectedRoutes = (props) => {
   if (!validToken) {
     localStorage.removeItem("token");
   }
-  if (localStorage.getItem("token") && validToken) {
+  if (token && validToken) {
     return props.children;
   } else {
     return <Navigate to="/login" />;

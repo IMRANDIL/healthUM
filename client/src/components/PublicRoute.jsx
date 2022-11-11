@@ -10,7 +10,7 @@ const PublicRoute = (props) => {
   if (!validToken) {
     localStorage.removeItem("token");
   }
-  if (localStorage.getItem("token") && validToken) {
+  if (token && validToken) {
     return <Navigate to="/" />;
   } else {
     return props.children;
