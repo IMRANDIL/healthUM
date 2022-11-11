@@ -1,32 +1,34 @@
 import React from "react";
 import "./Layout.css";
+import { Link, useLocation } from "react-router-dom";
 
 const Layout = ({ children }) => {
+  const location = useLocation();
   const userMenu = [
     {
       name: "Home",
       path: "/",
-      icon: "",
+      icon: "ri-home-line",
     },
     {
       name: "Appointments",
       path: "/appointments",
-      icon: "",
+      icon: "ri-file-list-line",
     },
     {
       name: "Apply Doctor",
       path: "/apply-doctor",
-      icon: "",
+      icon: "ri-hospital-line",
     },
     {
       name: "Profile",
       path: "/profile",
-      icon: "",
+      icon: "ri-file-user-line",
     },
     {
       name: "Logout",
       path: "/logout",
-      icon: "",
+      icon: "ri-logout-box-line",
     },
   ];
 
@@ -37,11 +39,24 @@ const Layout = ({ children }) => {
       <div className="d-flex layout">
         <div className="sidebar">
           <div className="sidebar-header">
-            <h1>HTHM</h1>
+            <h1>HEALTHM</h1>
           </div>
           <div className="menu">
-            {menuToBeRendered.map((menu) => {
-              return <div></div>;
+            {menuToBeRendered.map((menu, index) => {
+              const isActive = location.pathname === menu.path;
+              return (
+                <div
+                  className={`${
+                    isActive
+                      ? "d-flex menu-item active-menu-item"
+                      : "d-flex menu-item"
+                  }`}
+                  key={index}
+                >
+                  <i className={menu.icon}></i>
+                  <Link to={menu.path}>{menu.name}</Link>
+                </div>
+              );
             })}
           </div>
         </div>

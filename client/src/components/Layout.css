@@ -38,3 +38,36 @@
     box-shadow: 0 0 2px gray;
     width: 100%;
 }
+
+.menu{
+    margin-top: 80px;
+}
+
+.menu-item{
+    margin-top: 30px;
+}
+
+.menu-item a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.735);
+    font-size: 18px;
+}
+
+
+.menu-item i{
+    color: rgba(255, 255, 255, 0.727);
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 15px;
+}
+
+.menu-item:hover a{
+    color: rgba(255, 255, 255, 0.984);
+}
+
+.active-menu-item{
+    color: white;
+    background-color: #003b3b;
+    border-radius: 5px;
+    padding: 5px;
+}
