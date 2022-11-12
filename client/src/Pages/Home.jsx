@@ -14,7 +14,6 @@ const Home = () => {
           },
         }
       );
-      console.log(response);
     } catch (error) {
       toast.error(
         error.response.data.msg ? error.response.data.msg : error.message

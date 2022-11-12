@@ -2,9 +2,11 @@ import React from "react";
 import "./Layout.css";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const { user } = useSelector((state) => state.user);
   const location = useLocation();
   const userMenu = [
     {
@@ -69,9 +71,17 @@ const Layout = ({ children }) => {
         <div className="content">
           <div className="header">
             <i
-              className="ri-close-line remix-icon"
+              className={`ri-${
+                collapsed ? "menu-2-line" : "close-line"
+              } remix-icon`}
               onClick={() => setCollapsed(!collapsed)}
             ></i>
+            <div className="d-flex align-items-center px-4">
+              <i className="ri-notification-line remix-icon px-3"></i>
+              <Link to="/profile" className="anchor">
+                {user && user?.name ? user?.name[0] + user?.name[1] : "??"}
+              </Link>
+            </div>
           </div>
           <div className="body">{children}</div>
         </div>
