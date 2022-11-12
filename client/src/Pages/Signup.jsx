@@ -10,7 +10,9 @@ const Signup = () => {
   const dispatch = useDispatch();
   const handleFinish = async (values) => {
     if (!values.name || !values.email || !values.password) {
-      return toast.error("All Fields required!");
+      return toast.error("All Fields required!", {
+        duration: 1000,
+      });
     }
     try {
       dispatch(showLoading());
@@ -20,12 +22,17 @@ const Signup = () => {
         toast.success(response.data.msg);
         return navigate("/login");
       } else {
-        return toast.error(response.data.msg);
+        return toast.error(response.data.msg, {
+          duration: 1000,
+        });
       }
     } catch (error) {
       dispatch(hideLoading());
       toast.error(
-        error.response.data.msg ? error.response.data.msg : error.message
+        error.response.data.msg ? error.response.data.msg : error.message,
+        {
+          duration: 1000,
+        }
       );
     }
   };
