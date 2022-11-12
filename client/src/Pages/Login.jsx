@@ -25,7 +25,9 @@ const Login = () => {
       }
     } catch (error) {
       dispatch(hideLoading());
-      toast.error(error.response.data.msg);
+      toast.error(
+        error.response.data.msg ? error.response.data.msg : error.message
+      );
     }
   };
 
