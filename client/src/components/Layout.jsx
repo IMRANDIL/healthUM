@@ -44,7 +44,7 @@ const Layout = ({ children }) => {
             {collapsed ? (
               <i className="ri-hospital-fill hospital-icon"></i>
             ) : (
-              <h1>HEALTHM</h1>
+              <h1 className="logo-text">HEALTHM</h1>
             )}
           </div>
           <div className="menu">
