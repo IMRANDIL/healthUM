@@ -104,7 +104,13 @@ label{
     text-decoration: underline;
 }
 
-
+.remix-icon{
+    font-size: 30px;
+    cursor: pointer;
+    color: black;
+    padding-left: 10px;
+   
+}
 
 /* //authentication pages....styling */
 

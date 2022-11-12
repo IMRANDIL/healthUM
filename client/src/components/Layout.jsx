@@ -1,8 +1,10 @@
 import React from "react";
 import "./Layout.css";
 import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const Layout = ({ children }) => {
+  const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const userMenu = [
     {
@@ -37,9 +39,13 @@ const Layout = ({ children }) => {
   return (
     <div className="main">
       <div className="d-flex layout">
-        <div className="sidebar">
+        <div className={`sidebar ${collapsed && "collapsed-sidebar"}`}>
           <div className="sidebar-header">
-            <h1>HEALTHM</h1>
+            {collapsed ? (
+              <i className="ri-hospital-fill hospital-icon"></i>
+            ) : (
+              <h1>HEALTHM</h1>
+            )}
           </div>
           <div className="menu">
             {menuToBeRendered.map((menu, index) => {
@@ -54,14 +60,19 @@ const Layout = ({ children }) => {
                   key={index}
                 >
                   <i className={menu.icon}></i>
-                  <Link to={menu.path}>{menu.name}</Link>
+                  {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
                 </div>
               );
             })}
           </div>
         </div>
         <div className="content">
-          <div className="header">Header</div>
+          <div className="header">
+            <i
+              className="ri-close-line remix-icon"
+              onClick={() => setCollapsed(!collapsed)}
+            ></i>
+          </div>
           <div className="body">{children}</div>
         </div>
       </div>
