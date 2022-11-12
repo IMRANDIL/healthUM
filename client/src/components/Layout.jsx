@@ -2,11 +2,13 @@ import React from "react";
 import "./Layout.css";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import { showLoading, hideLoading } from "../Redux/alertsSlice";
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const location = useLocation();
   const userMenu = [
     {
@@ -57,10 +59,15 @@ const Layout = ({ children }) => {
   const menuToBeRendered = user && user.isAdmin ? adminMenu : userMenu;
 
   const handleLogout = () => {
+    dispatch(showLoading());
     localStorage.removeItem("token");
     toast.success("Logout successful!", {
       duration: 1000,
     });
+    dispatch({
+      user: null,
+    });
+    return dispatch(hideLoading());
   };
 
   return (
