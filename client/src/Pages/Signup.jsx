@@ -18,7 +18,7 @@ const Signup = () => {
       dispatch(showLoading());
       const response = await axios.post("/api/user/signup", values);
       dispatch(hideLoading());
-      if (response.data.success === true) {
+      if (response && response.data.success) {
         toast.success(response.data.msg);
         return navigate("/login");
       } else {

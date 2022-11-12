@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../Redux/usersSlice";
 import jwt from "jwt-decode";
+import toast from "react-hot-toast";
 import axios from "axios";
 import { showLoading, hideLoading } from "../Redux/alertsSlice";
 const ProtectedRoutes = (props) => {
@@ -26,19 +27,23 @@ const ProtectedRoutes = (props) => {
             }
           );
           dispatch(hideLoading());
-          if (response.data.success) {
-            dispatch(setUser(response.data.user));
-          } else {
-            navigate("/login");
+          if (response && response.data.success) {
+            return dispatch(setUser(response.data.user));
           }
         } catch (error) {
           dispatch(hideLoading());
-          navigate("/login");
+          localStorage.removeItem("token");
+          return toast.error(
+            error.response.data.msg ? error.response.data.msg : error.message,
+            {
+              duration: 1000,
+            }
+          );
         }
       };
       getUser();
     }
-  }, [user, dispatch, navigate, token]);
+  }, [user, dispatch, token, navigate]);
 
   const decoedToken = token && jwt(token);
 

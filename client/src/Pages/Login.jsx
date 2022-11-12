@@ -18,7 +18,7 @@ const Login = () => {
       dispatch(showLoading());
       const response = await axios.post("/api/user/login", values);
       dispatch(hideLoading());
-      if (response.data.success) {
+      if (response && response.data.success) {
         toast.success(response.data.msg);
         localStorage.setItem("token", response.data.token);
         return navigate("/");

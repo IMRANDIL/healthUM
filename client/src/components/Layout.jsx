@@ -78,7 +78,7 @@ const Layout = ({ children }) => {
             ></i>
             <div className="d-flex align-items-center px-4">
               <i className="ri-notification-line remix-icon px-3"></i>
-              <Link to="/profile" className="anchor">
+              <Link to="/profile" className="anchor-profile">
                 {user && user?.name ? user?.name[0] + user?.name[1] : "??"}
               </Link>
             </div>
