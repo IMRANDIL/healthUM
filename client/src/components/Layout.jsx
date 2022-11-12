@@ -3,7 +3,7 @@ import "./Layout.css";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
+import toast from "react-hot-toast";
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.user);
@@ -29,14 +29,39 @@ const Layout = ({ children }) => {
       path: "/profile",
       icon: "ri-file-user-line",
     },
+  ];
+
+  const adminMenu = [
     {
-      name: "Logout",
-      path: "/logout",
-      icon: "ri-logout-box-line",
+      name: "Home",
+      path: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Users",
+      path: "/users",
+      icon: "ri-user-line",
+    },
+    {
+      name: "Doctors",
+      path: "/doctors",
+      icon: "ri-hospital-line",
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: "ri-file-user-line",
     },
   ];
 
-  const menuToBeRendered = userMenu;
+  const menuToBeRendered = user && user.isAdmin ? adminMenu : userMenu;
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    toast.success("Logout successful!", {
+      duration: 1000,
+    });
+  };
 
   return (
     <div className="main">
@@ -66,6 +91,15 @@ const Layout = ({ children }) => {
                 </div>
               );
             })}
+
+            <div className="d-flex menu-item">
+              <i className="ri-logout-box-line"></i>
+              {!collapsed && (
+                <Link to="/login" onClick={handleLogout}>
+                  Logout
+                </Link>
+              )}
+            </div>
           </div>
         </div>
         <div className="content">

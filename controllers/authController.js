@@ -39,7 +39,6 @@ class Auth {
         token: jwtToken,
       });
     } catch (error) {
-      console.log(error);
       res.status(500).send({ msg: "Something went wrong!", success: false });
     }
   };
@@ -66,7 +65,6 @@ class Auth {
       });
       res.status(201).json({ msg: "Signup successful!", success: true });
     } catch (error) {
-      console.log(error);
       res.status(500).json({ msg: "Something went Wrong", success: false });
     }
   };
@@ -86,11 +84,12 @@ class Auth {
           name: user.name,
           email: user.email,
           _id: user._id,
+          isAdmin: user.isAdmin,
+          isDoctor: user.isDoctor,
           createdAt: user.createdAt,
         },
       });
     } catch (error) {
-      console.log(error);
       res.status(500).json({
         msg: "Something Went wrong",
         success: false,
