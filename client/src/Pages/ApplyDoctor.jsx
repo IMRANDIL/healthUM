@@ -105,6 +105,9 @@ const ApplyDoctor = () => {
             </Form.Item>
           </Col>
         </Row>
+        <div className="d-flex justify-content-end">
+          <Button className="primaryButton">Submit</Button>
+        </div>
       </Form>
     </Layout>
   );
