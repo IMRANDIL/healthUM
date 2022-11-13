@@ -67,8 +67,10 @@ label{
 }
 
 .card_title{
-   font-size: 1.5rem;
-   font-weight: bold; 
+   font-size: 22px;
+   font-weight: bold;
+   color:rgba(0, 0, 0, 0.521)
+
 }
 
 .normal_text{
@@ -114,7 +116,7 @@ label{
 
 .page-title{
     font-size: 25px;
-    color:rgba(0, 0, 0, 0.664);
+    color:rgba(0, 0, 0, 0.803);
     font-weight:bold;
 }
 
