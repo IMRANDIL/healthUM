@@ -2,11 +2,15 @@ import React from "react";
 import Layout from "../components/Layout";
 import { Button, Row, Col, Form, Input, TimePicker } from "antd";
 const ApplyDoctor = () => {
+  const handleFinish = (values) => {
+    console.log("success ", values);
+  };
+
   return (
     <Layout>
       <h1 className="page-title">Apply Doctor</h1>
       <hr />
-      <Form layout="vertical">
+      <Form layout="vertical" onFinish={handleFinish}>
         <h1 className="card_title">Personal Info :)</h1>
         <Row gutter={20}>
           <Col span={8} xs={24} sm={24} lg={8}>
@@ -106,7 +110,9 @@ const ApplyDoctor = () => {
           </Col>
         </Row>
         <div className="d-flex justify-content-end">
-          <Button className="primaryButton">Submit</Button>
+          <Button className="primaryButton" htmlType="submit">
+            Submit
+          </Button>
         </div>
       </Form>
     </Layout>
