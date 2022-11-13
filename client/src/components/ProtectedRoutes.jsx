@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../Redux/usersSlice";
 import jwt from "jwt-decode";
@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { showLoading, hideLoading } from "../Redux/alertsSlice";
 const ProtectedRoutes = (props) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const token = localStorage.getItem("token");
@@ -43,7 +42,7 @@ const ProtectedRoutes = (props) => {
       };
       getUser();
     }
-  }, [user, dispatch, token, navigate]);
+  }, [user, dispatch, token]);
 
   const decoedToken = token && jwt(token);
 
