@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/Layout";
-import { Button, Row, Col, Form, Input } from "antd";
+import { Button, Row, Col, Form, Input, TimePicker } from "antd";
 const ApplyDoctor = () => {
   return (
     <Layout>
@@ -81,7 +81,7 @@ const ApplyDoctor = () => {
               name="experience"
               rules={[{ required: true }]}
             >
-              <Input placeholder="Experience" />
+              <Input placeholder="Experience" type="number" min={0} />
             </Form.Item>
           </Col>
           <Col span={8} xs={24} sm={24} lg={8}>
@@ -91,28 +91,17 @@ const ApplyDoctor = () => {
               name="feePerConsultation"
               rules={[{ required: true }]}
             >
-              <Input placeholder="Consultation Fee" />
+              <Input placeholder="Consultation Fee" type="number" min={0} />
             </Form.Item>
           </Col>
           <Col span={8} xs={24} sm={24} lg={8}>
             <Form.Item
               required
-              label="From Time"
-              name="fromTime"
+              label="Timings"
+              name="timings"
               rules={[{ required: true }]}
             >
-              <Input placeholder="From Time" />
-            </Form.Item>
-          </Col>
-
-          <Col span={8} xs={24} sm={24} lg={8}>
-            <Form.Item
-              required
-              label="To Time"
-              name="toTime"
-              rules={[{ required: true }]}
-            >
-              <Input placeholder="To Time" />
+              <TimePicker.RangePicker />
             </Form.Item>
           </Col>
         </Row>

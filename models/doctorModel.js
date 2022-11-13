@@ -40,12 +40,8 @@ const doctorSchema = new Schema(
       type: Number,
       required: true,
     },
-    fromTime: {
-      type: String,
-      required: true,
-    },
-    toTime: {
-      type: String,
+    timings: {
+      type: Array,
       required: true,
     },
   },

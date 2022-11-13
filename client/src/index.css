@@ -21,6 +21,18 @@ input:focus{
     border: 1px solid gray !important;
 }
 
+.ant-picker-input input{
+    border:none !important;
+    
+}
+
+.ant-picker{
+    height: 40px !important;
+    border-radius: 3px !important;
+    border: 1px solid rgba(128, 128, 128, 0.56) !important;
+    height: 40px;
+}
+
 
 label{
     font-size: 16px !important;
