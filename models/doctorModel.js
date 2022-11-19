@@ -36,7 +36,7 @@ const doctorSchema = new Schema(
       type: String,
       required: true,
     },
-    feePerConsultaion: {
+    feePerConsultation: {
       type: Number,
       required: true,
     },

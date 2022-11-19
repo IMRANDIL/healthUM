@@ -120,9 +120,19 @@ class Auth {
           msg: "Bad Request",
         });
       }
+
+      const isDoctorExist = await Doctor.findOne({ userId: req.body.userId });
+      if (isDoctorExist) {
+        return res.status(400).json({
+          success: false,
+          msg: "You have already applied!",
+        });
+      }
+
       const newDoctor = await Doctor.create(req.body);
       const adminUser = await User.findOne({ isAdmin: true });
       const unseenNotifications = adminUser.unseenNotifications;
+
       unseenNotifications.push({
         type: "new-doctor-request",
         msg: `${newDoctor.firstName} ${newDoctor.lastName} has applied for a doctor account.`,
@@ -138,6 +148,7 @@ class Auth {
         msg: "Doctor account request sent successfully!",
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ msg: "Something went Wrong", success: false });
     }
   };
