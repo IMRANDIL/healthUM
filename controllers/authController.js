@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Doctor = require("../models/doctorModel");
 
 class Auth {
   loginController = async (req, res, next) => {
@@ -94,6 +95,50 @@ class Auth {
         msg: "Something Went wrong",
         success: false,
       });
+    }
+  };
+
+  applyDoctorController = async (req, res, next) => {
+    if (
+      !req.body.firstName ||
+      !req.body.lastName ||
+      !req.body.mobileNumber ||
+      !req.body.address ||
+      !req.body.experience ||
+      !req.body.specialization
+    ) {
+      return res
+        .status(400)
+        .json({ msg: `All Fields are required!`, success: false });
+    }
+
+    try {
+      const isValidUser = await User.findOne({ _id: req.body.userId });
+      if (!isValidUser) {
+        return res.status(400).json({
+          success: false,
+          msg: "Bad Request",
+        });
+      }
+      const newDoctor = await Doctor.create(req.body);
+      const adminUser = await User.findOne({ isAdmin: true });
+      const unseenNotifications = adminUser.unseenNotifications;
+      unseenNotifications.push({
+        type: "new-doctor-request",
+        msg: `${newDoctor.firstName} ${newDoctor.lastName} has applied for a doctor account.`,
+        data: {
+          doctorId: newDoctor._id,
+          name: `${newDoctor.firstName} ${newDoctor.lastName}`,
+        },
+        onClickPath: "/admin/doctors",
+      });
+      await User.findByIdAndUpdate(adminUser._id, { unseenNotifications });
+      res.status(200).json({
+        success: true,
+        msg: "Doctor account request sent successfully!",
+      });
+    } catch (error) {
+      res.status(500).json({ msg: "Something went Wrong", success: false });
     }
   };
 }
