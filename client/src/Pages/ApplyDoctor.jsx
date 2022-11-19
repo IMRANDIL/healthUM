@@ -28,10 +28,18 @@ const ApplyDoctor = () => {
     }
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/user/apply-doctor-account", {
-        ...values,
-        userId: user._id,
-      });
+      const response = await axios.post(
+        "/api/user/apply-doctor-account",
+        {
+          ...values,
+          userId: user._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       dispatch(hideLoading());
       if (response && response.data.success) {
         toast.success(response.data.msg);

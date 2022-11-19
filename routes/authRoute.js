@@ -5,6 +5,10 @@ const { authMiddleware } = require("../middlewares/authMiddleware");
 router.post("/signup", AuthClass.signupController);
 router.post("/login", AuthClass.loginController);
 router.post("/getUserInfo", authMiddleware, AuthClass.getUserInfoController);
-router.post("/apply-doctor-account", AuthClass.applyDoctorController);
+router.post(
+  "/apply-doctor-account",
+  authMiddleware,
+  AuthClass.applyDoctorController
+);
 
 module.exports = router;
