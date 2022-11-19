@@ -88,6 +88,8 @@ class Auth {
           isAdmin: user.isAdmin,
           isDoctor: user.isDoctor,
           createdAt: user.createdAt,
+          unseenNotifications: user.unseenNotifications,
+          seenNotifications: user.seenNotifications,
         },
       });
     } catch (error) {
