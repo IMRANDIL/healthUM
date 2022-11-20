@@ -141,6 +141,7 @@ class Auth {
         data: {
           doctorId: newDoctor._id,
           name: `${newDoctor.firstName} ${newDoctor.lastName}`,
+          email: isValidUser.email
         },
         onClickPath: "/admin/doctors",
       });
