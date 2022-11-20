@@ -5,14 +5,14 @@ import {Tabs} from 'antd';
 
 const Notification = () => {
     const items = [
-        { label: 'Tab 1', key: 'item-1', children: 'Content 1' },
-        { label: 'Tab 2', key: 'item-2', children: 'Content 2' },
+        { label: 'Unseen', key: 'item-1', children: 'Unseen' },
+        { label: 'Seen', key: 'item-2', children: 'Seen' },
       ];
 
   return (
    <Layout>
     <h1 className="page-title">Notifications</h1>
-    <Tabs items={items}/>
+    <Tabs items={items} />
    </Layout>
   )
 }
