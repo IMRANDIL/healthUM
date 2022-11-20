@@ -1,6 +1,6 @@
 import React from "react";
 import "./Layout.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
@@ -9,6 +9,7 @@ import { Badge } from "antd";
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const location = useLocation();
   const userMenu = [
@@ -119,7 +120,7 @@ const Layout = ({ children }) => {
               onClick={() => setCollapsed(!collapsed)}
             ></i>
             <div className="d-flex align-items-center px-4">
-              <Badge count={user?.unseenNotifications.length}>
+              <Badge count={user?.unseenNotifications.length} onClick={()=>navigate('/notifications')}>
                 <i className="ri-notification-line remix-icon px-3"></i>
               </Badge>
 
