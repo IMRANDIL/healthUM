@@ -63,14 +63,14 @@ const Layout = ({ children }) => {
   const handleLogout = () => {
     dispatch(showLoading());
     toast.success("Logout successful!", {
-      duration: 2000,
+      duration: 3000,
     });
     localStorage.removeItem("token");
-    dispatch({
+   dispatch({
       user: null,
     });
-  
    return dispatch(hideLoading());
+   
   };
 
   return (
