@@ -19,6 +19,10 @@ input{
     right: 17px !important;
 }
 
+/* .ant-tabs-tabpane{
+    font-size: 30px !important;
+} */
+
 input:focus,.ant-picker{
     outline: none;
     box-shadow: none !important;
