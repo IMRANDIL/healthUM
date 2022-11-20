@@ -60,16 +60,17 @@ const Layout = ({ children }) => {
 
   const menuToBeRendered = user && user.isAdmin ? adminMenu : userMenu;
 
-  const handleLogout = () => {
+  const handleLogout = (cb) => {
     dispatch(showLoading());
-    localStorage.removeItem("token");
     toast.success("Logout successful!", {
-      duration: 1000,
+      duration: 2000,
     });
+    localStorage.removeItem("token");
     dispatch({
       user: null,
     });
-    return dispatch(hideLoading());
+  
+   return dispatch(hideLoading());
   };
 
   return (
