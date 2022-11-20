@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
 
   const menuToBeRendered = user && user.isAdmin ? adminMenu : userMenu;
 
-  const handleLogout = (cb) => {
+  const handleLogout = () => {
     dispatch(showLoading());
     toast.success("Logout successful!", {
       duration: 2000,
