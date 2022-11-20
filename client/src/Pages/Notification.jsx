@@ -1,14 +1,45 @@
 import React from 'react'
 import Layout from '../components/Layout';
-import {notification, Tabs} from 'antd';
+import {Tabs} from 'antd';
 import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { hideLoading, showLoading } from '../Redux/alertsSlice';
+import axios from 'axios';
 
 
 const Notification = () => {
 
   const {user} = useSelector(state=>state.user)
-const navigate = useNavigate()
+const navigate = useNavigate();
+const dispatch = useDispatch()
+
+const markAllAsSeen = async()=>{
+  try {
+    dispatch(showLoading());
+    const response = await axios.post("/api/user/signup", {});
+    dispatch(hideLoading());
+    if (response && response.data.success) {
+      toast.success(response.data.msg);
+      return navigate("/login");
+    } else {
+      return toast.error(response.data.msg, {
+        duration: 1000,
+      });
+    }
+  } catch (error) {
+    dispatch(hideLoading());
+    toast.error(
+      error.response.data.msg ? error.response.data.msg : error.message,
+      {
+        duration: 1000,
+      }
+    );
+  }
+}
+
+
+
   return (
    <Layout>
     <h1 className="page-title">Notifications</h1>
