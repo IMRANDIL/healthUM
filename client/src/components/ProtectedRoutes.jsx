@@ -8,7 +8,7 @@ import axios from "axios";
 import { showLoading, hideLoading } from "../Redux/alertsSlice";
 const ProtectedRoutes = (props) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user} = useSelector((state) => state.user);
   const token = localStorage.getItem("token");
 
   useEffect(() => {

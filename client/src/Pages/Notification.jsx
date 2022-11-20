@@ -17,11 +17,10 @@ const dispatch = useDispatch()
 const markAllAsSeen = async()=>{
   try {
     dispatch(showLoading());
-    const response = await axios.post("/api/user/signup", {});
+    const response = await axios.post("/api/user/mark-all-notifications-seen", {userId: user._id});
     dispatch(hideLoading());
     if (response && response.data.success) {
-      toast.success(response.data.msg);
-      return navigate("/login");
+     return toast.success(response.data.msg);
     } else {
       return toast.error(response.data.msg, {
         duration: 1000,
@@ -46,7 +45,7 @@ const markAllAsSeen = async()=>{
     <Tabs>
       <Tabs.TabPane tab='Unseen' key={0}>
 <div className="d-flex justify-content-end">
-  <h1 className="anchor">Mark all as seen</h1>
+  <h1 className="anchor" onClick={markAllAsSeen}>Mark all as seen</h1>
 </div>
 {user && user.unseenNotifications.map((notification,index)=>(
   <div className='card p-2' onClick={()=>navigate(notification.onClickPath)} key={index}>
