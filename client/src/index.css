@@ -113,6 +113,22 @@ label{
    
 }
 
+.inputContainer{
+   display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+   
+
+}
+
+.inputContainer > input{
+    width: 85%;
+    padding: 15px;
+}
+
+
 .primaryButton{
     background-color: #005555 !important;
     border-color: #005555 !important;
