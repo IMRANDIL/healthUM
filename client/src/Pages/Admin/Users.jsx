@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 import Layout from '../../components/Layout';
-import { setUser } from '../../Redux/usersSlice';
-import { useDispatch } from 'react-redux';
+import { setUsers } from '../../Redux/allUsersSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import toast from "react-hot-toast";
 import {showLoading,hideLoading} from '../../Redux/alertsSlice'
@@ -10,40 +10,41 @@ import {showLoading,hideLoading} from '../../Redux/alertsSlice'
 
 const Users = () => {
 
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
+  const {users} = useSelector((state)=>state.users)
 useEffect(()=>{
-
-const getAllUsers = async()=>{
-  try {
-    dispatch(showLoading());
-    const response = await axios.get(
-      "/api/admin/allUsers",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
+if(!users){
+  const getAllUsers = async()=>{
+    try {
+      dispatch(showLoading());
+      const response = await axios.get(
+        "/api/admin/allUsers",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response && response.data.success) {
+        return dispatch(setUsers(response.data.users));
       }
-    );
-    dispatch(hideLoading());
-    if (response && response.data.success) {
-      return dispatch(setUser(response.data.user));
+    } catch (error) {
+      dispatch(hideLoading());
+      return toast.error(
+        error.response.data.msg ? error.response.data.msg : error.message,
+        {
+          duration: 1000,
+        }
+      );
     }
-  } catch (error) {
-    dispatch(hideLoading());
-    return toast.error(
-      error.response.data.msg ? error.response.data.msg : error.message,
-      {
-        duration: 1000,
-      }
-    );
   }
+  
+  getAllUsers()
 }
 
-getAllUsers()
 
-},[dispatch])
+},[dispatch,users])
 
 
   return (

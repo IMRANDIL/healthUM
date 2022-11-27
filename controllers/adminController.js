@@ -5,7 +5,7 @@ const Doctor = require('../models/doctorModel')
 class Admin {
     getAllUsers = async(req,res,next)=>{
 try {
-    const users = await User.find({})
+    const users = await User.find({}).select('-password')
     res.status(200).json({
         success:true,
         msg:'Users Fetched',
@@ -19,7 +19,7 @@ try {
 
     getAllDoctors = async(req,res,next)=>{
         try {
-            const doctors = await Doctor.find({});
+            const doctors = await Doctor.find({}).select('-password')
             res.status(200).json({
                 success:true,
                 msg:'Doctors Fetched',
