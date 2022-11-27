@@ -108,6 +108,7 @@ label{
 
 .card{
     box-shadow: 0 0 2px gray;
+    cursor: pointer;
     /* border-radius: 0 !important; */
    
 }

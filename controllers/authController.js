@@ -165,15 +165,18 @@ class Auth {
           success:false
         })
       }
+   
+     const seenNotifications = user.seenNotifications;
+     const unseenNotifications = user.unseenNotifications;
+     user.seenNotifications = [...seenNotifications,...unseenNotifications];
+     user.unseenNotifications = [];
 
-      const unseenNotifications = user.unseenNotifications;
-      user.seenNotifications = unseenNotifications;
-      user.unseenNotifications = [];
-      const updatedUser = await User.findByIdAndUpdate(req.body.userId,user).select('-password')
+      const updatedUser = await user.save();
+      updatedUser.password = undefined;
       res.status(200).json({
         success:true,
         msg:'All notifications marked as seen',
-        updatedUser
+       updatedUser
       })
     } catch (error) {
       console.log(error);
@@ -190,10 +193,9 @@ class Auth {
           success:false
         })
       }
-
-     
-      user.seenNotifications=[]
-      const updatedUser = await User.findByIdAndUpdate(req.body.userId,user).select('-password')
+     user.seenNotifications = [];
+     const updatedUser = await user.save();
+     updatedUser.password = undefined;
       res.status(200).json({
         success:true,
         msg:'All notifications deleted',
