@@ -66,7 +66,7 @@ const App = () => {
           />
 
 <Route
-            path="/users"
+            path="/admin/users"
             element={
               <ProtectedRoutes>
                 <Users />
@@ -75,7 +75,7 @@ const App = () => {
           />
 
 <Route
-            path="/doctors"
+            path="/admin/doctors"
             element={
               <ProtectedRoutes>
                 <Doctors />
