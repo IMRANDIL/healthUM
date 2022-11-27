@@ -11,4 +11,7 @@ router.post(
   AuthClass.applyDoctorController
 );
 
+router.post('/mark-all-notifications-seen',authMiddleware, AuthClass.notificationController);
+router.post('/delete-all-seen-notifications',authMiddleware,AuthClass.deleteAllNotificationController)
+
 module.exports = router;

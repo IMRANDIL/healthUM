@@ -155,6 +155,56 @@ class Auth {
       res.status(500).json({ msg: "Something went Wrong", success: false });
     }
   };
+
+  notificationController = async(req,res,next)=>{
+    try {
+      const user = await User.findOne({_id: req.body?.userId});
+      if(!user){
+        return res.status(404).json({
+          msg:'User not found',
+          success:false
+        })
+      }
+
+      const unseenNotifications = user.unseenNotifications;
+      user.seenNotifications = unseenNotifications;
+      user.unseenNotifications = [];
+      const updatedUser = await User.findByIdAndUpdate(req.body.userId,user).select('-password')
+      res.status(200).json({
+        success:true,
+        msg:'All notifications marked as seen',
+        updatedUser
+      })
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ msg: "Something went Wrong", success: false });
+    }
+  }
+
+  deleteAllNotificationController = async(req,res,next)=>{
+    try {
+      const user = await User.findOne({_id: req.body?.userId});
+      if(!user){
+        return res.status(404).json({
+          msg:'User not found',
+          success:false
+        })
+      }
+
+     
+      user.seenNotifications=[]
+      const updatedUser = await User.findByIdAndUpdate(req.body.userId,user).select('-password')
+      res.status(200).json({
+        success:true,
+        msg:'All notifications deleted',
+        updatedUser
+      })
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ msg: "Something went Wrong", success: false });
+    }
+  }
+
 }
 
 const AuthClass = new Auth();
