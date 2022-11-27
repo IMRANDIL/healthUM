@@ -8,6 +8,7 @@ try {
     const users = await User.find({})
     res.status(200).json({
         success:true,
+        msg:'Users Fetched',
         users
     })
 } catch (error) {
@@ -21,6 +22,7 @@ try {
             const doctors = await Doctor.find({});
             res.status(200).json({
                 success:true,
+                msg:'Doctors Fetched',
                 doctors
             })
         } catch (error) {
