@@ -47,6 +47,49 @@ try {
             res.status(500).send({ msg: "Something went wrong!", success: false }); 
         }
     }
+
+    approveDoctor = async(req,res,next)=>{
+        const {doctorId,userId} = req.body;
+        try {
+            const findUser = await User.findById(userId);
+            if(!findUser){
+                return res.status(404).json({
+                    success:false,
+                    msg:'User does not exist!'
+                })
+            }
+
+            const findDoctor = await Doctor.findById(doctorId);
+            if(!findDoctor){
+                return res.status(404).json({
+                    success:false,
+                    msg:'Doctor does not exist!'
+                })
+            }
+
+         findDoctor.status = 'approved';
+         await findDoctor.save();
+            const unseenNotifications = findUser.unseenNotifications;
+            unseenNotifications.push({
+                type: "approval-request",
+                msg: `${findDoctor.firstName} ${findDoctor.lastName},your account is ${findDoctor.status} now.`,
+                data: {
+                  doctorId: findDoctor._id,
+                  name: `${findDoctor.firstName} ${findDoctor.lastName}`,
+                  email: findUser.email
+                },
+                onClickPath: "",
+              });
+
+              await User.findByIdAndUpdate(userId,{unseenNotifications:unseenNotifications,isDoctor:true});
+              res.status(200).json({
+                success:true,
+                msg:`${findDoctor.firstName}'s account approved!`
+              })
+        } catch (error) {
+            res.status(500).send({ msg: "Something went wrong!", success: false });
+        }
+    }
 }
 
 const AdminClass = new Admin();

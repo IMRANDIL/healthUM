@@ -64,6 +64,34 @@ const Doctors = () => {
     
 
 
+const handleStatus = async(doctorId,userId)=>{
+  try {
+    dispatch(showLoading());
+    const response = await axios.post('/api/admin/approve-doctor',{doctorId:doctorId,userId:userId},{
+      headers:{
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    dispatch(hideLoading());
+    if (response && response.data.success) {
+      toast.success(response.data.msg);
+      return dispatch(setDoctors(response.data.doctors));
+    }
+  } catch (error) {
+    dispatch(hideLoading());
+          return toast.error(
+            error.response.data.msg ? error.response.data.msg : error.message,
+            {
+              duration: 1000,
+            }
+          );
+  }
+}
+
+
+
+
+
     const columns = [
       {
         title:'Name',
@@ -91,7 +119,7 @@ dataIndex:'status'
         dataIndex:'actions',
         render: (text,record)=>(
           <div className='d-flex'>
-            {record.status === 'pending' ? <h1 className='anchor'>Approve</h1> : <h1 className='anchor'>Block</h1>}
+            {record.status === 'pending' ? <h1 className='anchor' onClick={()=>handleStatus(record._id,record.userId)}>Approve</h1> : <h1 className='anchor'>Block</h1>}
            
           </div>
         )

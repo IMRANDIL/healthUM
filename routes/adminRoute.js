@@ -4,7 +4,8 @@ const {authMiddleware} = require('../middlewares/authMiddleware')
 
 
 router.get('/allUsers',authMiddleware,AdminClass.getAllUsers);
-router.get('/allDoctors',authMiddleware,AdminClass.getAllDoctors)
+router.get('/allDoctors',authMiddleware,AdminClass.getAllDoctors);
+router.post('/approve-doctor',authMiddleware,AdminClass.approveDoctor)
 
 
 
