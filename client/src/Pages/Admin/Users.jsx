@@ -98,7 +98,7 @@ const columns = [
             <input type="text" placeholder='Search Users Here'/>
         </div>
 
-<Table columns={columns} dataSource={users} pagination='h'/>        
+<Table columns={columns} dataSource={users}/>        
     </Layout>
     {pages > 1 && (
       <div className="pagination_container">
