@@ -10,15 +10,19 @@ import {showLoading,hideLoading} from '../../Redux/alertsSlice'
 
 const Users = () => {
 
+
+
   const dispatch = useDispatch();
-  const {users} = useSelector((state)=>state.users)
+  const {users} = useSelector((state)=>state.users);
+
+
 useEffect(()=>{
 if(!users){
   const getAllUsers = async()=>{
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/admin/allUsers",
+        "/api/admin/allUsers?page=1&limit=1",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -46,7 +50,6 @@ if(!users){
 
 },[dispatch,users])
 
-
   return (
     <Layout>
        
@@ -54,6 +57,8 @@ if(!users){
         <h1 className='page-title'>All Users:</h1>
             <input type="text" placeholder='Search Users Here'/>
         </div>
+
+        
     </Layout>
   )
 }
