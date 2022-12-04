@@ -1,7 +1,9 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import Layout from '../../components/Layout';
 import { setUsers } from '../../Redux/allUsersSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import toast from "react-hot-toast";
 import {showLoading,hideLoading} from '../../Redux/alertsSlice'
@@ -10,19 +12,28 @@ import {showLoading,hideLoading} from '../../Redux/alertsSlice'
 
 const Users = () => {
 
-
+const [pages,setPages] = useState(1);
+const [page,setPage] = useState(1)
 
   const dispatch = useDispatch();
   const {users} = useSelector((state)=>state.users);
 
 
+  const onChange = (current,value)=>{
+    
+    setPage(value);
+   
+  }
+
+
+
+
 useEffect(()=>{
-if(!users){
   const getAllUsers = async()=>{
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/admin/allUsers?page=1&limit=1",
+        `/api/admin/allUsers?page=${page}&limit=2`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -31,6 +42,7 @@ if(!users){
       );
       dispatch(hideLoading());
       if (response && response.data.success) {
+        setPages(response.data.pages)
         return dispatch(setUsers(response.data.users));
       }
     } catch (error) {
@@ -45,12 +57,16 @@ if(!users){
   }
   
   getAllUsers()
-}
 
 
-},[dispatch,users])
+
+},[dispatch,page])
+
+
+
 
   return (
+    <>
     <Layout>
        
         <div className='inputContainer'>
@@ -60,6 +76,12 @@ if(!users){
 
         
     </Layout>
+    <div className="pagination_container">
+    <Stack spacing={2}>
+      <Pagination count={pages} page={page}  onChange={onChange}/>
+      </Stack>
+  </div>
+  </>
   )
 }
 
