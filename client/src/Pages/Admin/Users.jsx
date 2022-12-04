@@ -33,7 +33,7 @@ useEffect(()=>{
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        `/api/admin/allUsers?page=${page}&limit=2`,
+        `/api/admin/allUsers?page=${page}&limit=4`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -76,11 +76,14 @@ useEffect(()=>{
 
         
     </Layout>
-    <div className="pagination_container">
+    {pages > 1 && (
+      <div className="pagination_container">
     <Stack spacing={2}>
       <Pagination count={pages} page={page}  onChange={onChange}/>
       </Stack>
   </div>
+    )}
+    
   </>
   )
 }
