@@ -5,10 +5,17 @@ const Doctor = require('../models/doctorModel')
 class Admin {
     getAllUsers = async(req,res,next)=>{
 try {
-    const users = await User.find({}).select('-password')
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const skip = (page-1)*limit;
+    const totalUsers = await User.countDocuments();
+
+    const pages = Math.ceil(totalUsers/limit);
+    const users = await User.find({}).select('-password').skip(skip).limit(limit)
     res.status(200).json({
         success:true,
         msg:'Users Fetched',
+        pages: pages,
         users
     })
 } catch (error) {
