@@ -33,7 +33,7 @@ useEffect(()=>{
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        `/api/admin/allUsers?page=${page}&limit=4`,
+        `/api/admin/allUsers?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
