@@ -14,7 +14,8 @@ const Doctors = () => {
 
 
   const [pages,setPages] = useState(1);
-  const [page,setPage] = useState(1)
+  const [page,setPage] = useState(1);
+  const [isSuccess,setIsSuccess] = useState(false)
   
     const dispatch = useDispatch();
     const {doctors} = useSelector((state)=>state.doctors);
@@ -60,7 +61,7 @@ const Doctors = () => {
     
     
     
-    },[dispatch,page])
+    },[dispatch,page,isSuccess])
     
 
 
@@ -75,7 +76,8 @@ const handleStatus = async(doctorId,userId)=>{
     dispatch(hideLoading());
     if (response && response.data.success) {
       toast.success(response.data.msg);
-      return dispatch(setDoctors(response.data.doctors));
+      return setIsSuccess(true)
+     
     }
   } catch (error) {
     dispatch(hideLoading());

@@ -72,7 +72,7 @@ try {
             const unseenNotifications = findUser.unseenNotifications;
             unseenNotifications.push({
                 type: "approval-request",
-                msg: `${findDoctor.firstName} ${findDoctor.lastName},your account is ${findDoctor.status} now.`,
+                msg: `${findDoctor.firstName} ${findDoctor.lastName}, your account is ${findDoctor.status} now.`,
                 data: {
                   doctorId: findDoctor._id,
                   name: `${findDoctor.firstName} ${findDoctor.lastName}`,
