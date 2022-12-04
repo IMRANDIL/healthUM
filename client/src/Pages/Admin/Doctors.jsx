@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import toast from "react-hot-toast";
 import {showLoading,hideLoading} from '../../Redux/alertsSlice'
+import { Table } from 'antd';
 
 
 const Doctors = () => {
@@ -63,6 +64,44 @@ const Doctors = () => {
     
 
 
+    const columns = [
+      {
+        title:'Name',
+        dataIndex: 'name',
+        render:(text,record)=> <span className='normal_text'>{record.firstName} {record.lastName}</span>
+      },
+      {
+        title:'Specialization',
+        dataIndex: 'specialization'
+      },
+      {
+        title:'Phone',
+        dataIndex:'mobileNumber'
+      },
+      {
+        title: 'Created At',
+        dataIndex: 'createdAt'
+      },
+      {
+title:'Status',
+dataIndex:'status'
+      },
+      {
+        title:'Action',
+        dataIndex:'actions',
+        render: (text,record)=>(
+          <div className='d-flex'>
+            {record.status === 'pending' ? <h1 className='anchor'>Approve</h1> : <h1 className='anchor'>Block</h1>}
+           
+          </div>
+        )
+    
+        
+      }
+    ]
+
+
+
   return (
     <>
     <Layout>
@@ -70,6 +109,11 @@ const Doctors = () => {
         <h1 className='page-title'>All Doctors:</h1>
             <input type="text" placeholder='Search Doctors Here'/>
         </div>
+
+
+<Table columns={columns} dataSource={doctors}/>
+
+
     </Layout>
     {pages > 1 && (
       <div className="pagination_container">

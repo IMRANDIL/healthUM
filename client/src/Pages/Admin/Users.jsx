@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import toast from "react-hot-toast";
 import {showLoading,hideLoading} from '../../Redux/alertsSlice'
+import { Table } from 'antd';
 
 
 
@@ -62,7 +63,30 @@ useEffect(()=>{
 
 },[dispatch,page])
 
+const columns = [
+  {
+    title:'Name',
+    dataIndex: 'name'
+  },
+  {
+    title:'Email',
+    dataIndex: 'email'
+  },{
+    title: 'Created At',
+    dataIndex: 'createdAt'
+  },
+  {
+    title:'Action',
+    dataIndex:'actions',
+    render: (text,record)=>(
+      <div className='d-flex'>
+        <h1 className='anchor'>Block</h1>
+      </div>
+    )
 
+    
+  }
+]
 
 
   return (
@@ -74,7 +98,7 @@ useEffect(()=>{
             <input type="text" placeholder='Search Users Here'/>
         </div>
 
-        
+<Table columns={columns} dataSource={users} pagination='h'/>        
     </Layout>
     {pages > 1 && (
       <div className="pagination_container">
