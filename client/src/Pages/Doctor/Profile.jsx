@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -11,8 +11,8 @@ const Profile = () => {
 
   const [doctor,setDoctor] = useState(null)
 const dispatch = useDispatch();
-const {user} = useSelector((state)=>state.user);
-const navigate = useNavigate()
+// const {user} = useSelector((state)=>state.user);
+// const navigate = useNavigate()
 const {userId} = useParams()
 
 
