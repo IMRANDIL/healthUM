@@ -35,6 +35,25 @@ const Layout = ({ children }) => {
     },
   ];
 
+  const doctorMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      icon: "ri-file-list-line",
+    },
+   
+    {
+      name: "Profile",
+      path: `/doctor/profile/${user && user._id}`,
+      icon: "ri-file-user-line",
+    },
+  ];
+
   const adminMenu = [
     {
       name: "Home",
@@ -58,7 +77,7 @@ const Layout = ({ children }) => {
     },
   ];
 
-  const menuToBeRendered = user && user.isAdmin ? adminMenu : userMenu;
+  const menuToBeRendered = user && user.isAdmin ? adminMenu : user && user.isDoctor ? doctorMenu : userMenu;
 
   const handleLogout = () => {
     dispatch(showLoading());
