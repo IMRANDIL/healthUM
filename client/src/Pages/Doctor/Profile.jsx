@@ -12,14 +12,45 @@ const Profile = () => {
   const [doctor,setDoctor] = useState(null)
 const dispatch = useDispatch();
 // const {user} = useSelector((state)=>state.user);
-// const navigate = useNavigate()
+const navigate = useNavigate()
 const {userId} = useParams()
 
 
-const handleFinish = async(values)=>{
-
-}
-
+const handleFinish = async (values) => {
+  
+  try {
+    dispatch(showLoading());
+    const response = await axios.put(
+      "/api/doctor/update-doctor-profile",
+      {
+        ...values,
+        userId: userId
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    dispatch(hideLoading());
+    if (response && response.data.success) {
+      toast.success(response.data.msg);
+      return navigate("/");
+    } else {
+      return toast.error(response.data.msg, {
+        duration: 1000,
+      });
+    }
+  } catch (error) {
+    dispatch(hideLoading());
+    toast.error(
+      error.response.data.msg ? error.response.data.msg : error.message,
+      {
+        duration: 1000,
+      }
+    );
+  }
+};
 
 
  
