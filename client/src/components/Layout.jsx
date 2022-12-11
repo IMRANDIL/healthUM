@@ -78,7 +78,7 @@ const Layout = ({ children }) => {
   ];
 
   const menuToBeRendered = user && user.isAdmin ? adminMenu : user && user.isDoctor ? doctorMenu : userMenu;
-
+  const role = user && user.isAdmin ? 'Admin' : user && user.isDoctor ? 'Doctor' : 'User'
   const handleLogout = () => {
     dispatch(showLoading());
     toast.success("Logout successful!", {
@@ -100,7 +100,10 @@ const Layout = ({ children }) => {
             {collapsed ? (
               <i className="ri-hospital-fill hospital-icon"></i>
             ) : (
+              <>
               <h1 className="logo-text">HEALTHM</h1>
+              <h2 className="role">{role}</h2>
+              </>
             )}
           </div>
           <div className="menu">

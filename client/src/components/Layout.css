@@ -103,6 +103,12 @@
     font-size: 20px !important;
 }
 
+.role{
+    color:white;
+    font-size: 14px;
+    margin-top: -20px;
+}
+
 
 .menu-item i{
     color: rgba(255, 255, 255, 0.727);

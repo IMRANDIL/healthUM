@@ -6,11 +6,14 @@ const DoctorForm = ({handleFinish,initialValues}) => {
   return (
     <Form layout="vertical" onFinish={handleFinish} initialValues={{
       ...initialValues,
-      timings:[
-        moment(initialValues.timings[0],'HH:mm'),
-        moment(initialValues.timings[1],'HH:mm'),
-
-      ]
+      ...(initialValues && {
+        timings:[
+          moment(initialValues?.timings[0],'HH:mm'),
+          moment(initialValues?.timings[1],'HH:mm'),
+  
+        ]
+    
+      })
     }}>
     <h1 className="card_title">Personal Info :)</h1>
     <Row gutter={20}>
@@ -106,7 +109,7 @@ const DoctorForm = ({handleFinish,initialValues}) => {
           name="timings"
           rules={[{ required: true }]}
         >
-          <TimePicker.RangePicker format='HH:mm'/>
+          <TimePicker.RangePicker format='HH:mm' />
         </Form.Item>
       </Col>
     </Row>
