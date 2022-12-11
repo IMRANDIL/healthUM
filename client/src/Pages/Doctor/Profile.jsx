@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -13,7 +13,7 @@ const Profile = () => {
 const dispatch = useDispatch();
 const {user} = useSelector((state)=>state.user);
 const navigate = useNavigate()
-const {userId} = useSearchParams()
+const {userId} = useParams()
 
 
 const handleFinish = async(values)=>{
@@ -34,7 +34,7 @@ const handleFinish = async(values)=>{
           "/api/doctor/get-doctor-info-by-userId",
           {
            
-            userId: user.id,
+            userId: userId
           },
           {
             headers: {
@@ -58,14 +58,15 @@ const handleFinish = async(values)=>{
       }
     };
    doctorByUserId()
-  },[dispatch,user])
+  },[dispatch,userId])
 
 
   return (
   <Layout>
 <h1 className="page-title">Doctor Profile</h1>
 <hr/>
-<DoctorForm handleFinish={handleFinish} initialValues={doctor}/>
+{doctor && <DoctorForm handleFinish={handleFinish} initialValues={doctor}/>}
+
   </Layout>
   )
 }
