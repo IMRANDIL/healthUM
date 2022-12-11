@@ -85,7 +85,7 @@ const App = () => {
           />
 
 <Route
-            path="/doctor/profile/:doctorId"
+            path="/doctor/profile/:userId"
             element={
               <ProtectedRoutes>
                 <Profile />

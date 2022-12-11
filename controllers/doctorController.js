@@ -1,7 +1,7 @@
 const Doctor = require('../models/doctorModel')
 
 
-class Doctor {
+class DoctorContr {
 getDoctorByuserId = async(req,res,next)=>{
 try {
     const user = await Doctor.findOne({userId: req.body.userId});
@@ -25,5 +25,5 @@ try {
 }
 };
 
-const doctorClass = new Doctor();
+const doctorClass = new DoctorContr();
 module.exports = {doctorClass}
