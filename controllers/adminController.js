@@ -49,7 +49,7 @@ try {
     }
 
     approveDoctor = async(req,res,next)=>{
-        const {doctorId,userId} = req.body;
+        const {doctorId,userId,status} = req.body;
         try {
             const findUser = await User.findById(userId);
             if(!findUser){
@@ -67,7 +67,12 @@ try {
                 })
             }
 
-         findDoctor.status = 'approved';
+            if(status === 'pending' || status === 'blocked'){
+                findDoctor.status = 'approved'
+            }else{
+                findDoctor.status = 'blocked'
+            }
+    
          await findDoctor.save();
             const unseenNotifications = findUser.unseenNotifications;
             unseenNotifications.push({
@@ -84,7 +89,7 @@ try {
               await User.findByIdAndUpdate(userId,{unseenNotifications:unseenNotifications,isDoctor:true});
               res.status(200).json({
                 success:true,
-                msg:`${findDoctor.firstName}'s account approved!`
+                msg:`${findDoctor.firstName}'s account ${findDoctor.status}!`
               })
         } catch (error) {
             res.status(500).send({ msg: "Something went wrong!", success: false });

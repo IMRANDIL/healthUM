@@ -57,18 +57,21 @@ const Doctors = () => {
         }
       }
       
-      getAllDoctors()
+     getAllDoctors()
     
-    
+  
     
     },[dispatch,page,isSuccess])
-    
 
 
-const handleStatus = async(doctorId,userId)=>{
+
+
+
+
+const handleStatus = async(doctorId,userId,status)=>{
   try {
     dispatch(showLoading());
-    const response = await axios.post('/api/admin/approve-doctor',{doctorId:doctorId,userId:userId},{
+    const response = await axios.post('/api/admin/approve-doctor',{doctorId:doctorId,userId:userId,status:status},{
       headers:{
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -76,9 +79,10 @@ const handleStatus = async(doctorId,userId)=>{
     dispatch(hideLoading());
     if (response && response.data.success) {
       toast.success(response.data.msg);
-      return setIsSuccess(true)
+     setIsSuccess(!isSuccess);
      
     }
+   
   } catch (error) {
     dispatch(hideLoading());
           return toast.error(
@@ -121,8 +125,8 @@ dataIndex:'status'
         dataIndex:'actions',
         render: (text,record)=>(
           <div className='d-flex'>
-            {record.status === 'pending' ? <h1 className='anchor' onClick={()=>handleStatus(record._id,record.userId)}>Approve</h1> : <h1 className='anchor'>Block</h1>}
-           
+            <h1 className='anchor' onClick={()=>handleStatus(record._id,record.userId,record.status)}>{record.status === 'pending' ? 'Approve' : record.status === 'approved' ? 'Block' : 'Approve'}</h1>
+          
           </div>
         )
     
