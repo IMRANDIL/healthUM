@@ -1,9 +1,17 @@
 import { Form,Col,Row,Button, TimePicker, Input } from 'antd'
+import moment from 'moment'
 import React from 'react'
 
 const DoctorForm = ({handleFinish,initialValues}) => {
   return (
-    <Form layout="vertical" onFinish={handleFinish} initialValues={initialValues}>
+    <Form layout="vertical" onFinish={handleFinish} initialValues={{
+      ...initialValues,
+      timings:[
+        moment(initialValues.timings[0],'HH:mm'),
+        moment(initialValues.timings[1],'HH:mm'),
+
+      ]
+    }}>
     <h1 className="card_title">Personal Info :)</h1>
     <Row gutter={20}>
       <Col span={8} xs={24} sm={24} lg={8}>
@@ -91,16 +99,16 @@ const DoctorForm = ({handleFinish,initialValues}) => {
           <Input placeholder="Consultation Fee" type="number" min={0} />
         </Form.Item>
       </Col>
-      {/* <Col span={8} xs={24} sm={24} lg={8}>
+      <Col span={8} xs={24} sm={24} lg={8}>
         <Form.Item
           required
           label="Timings"
           name="timings"
           rules={[{ required: true }]}
         >
-          <TimePicker.RangePicker />
+          <TimePicker.RangePicker format='HH:mm'/>
         </Form.Item>
-      </Col> */}
+      </Col>
     </Row>
     <div className="d-flex justify-content-end">
       <Button className="primaryButton" htmlType="submit">

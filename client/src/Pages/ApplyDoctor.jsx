@@ -6,6 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { hideLoading, showLoading } from "../Redux/alertsSlice";
 import DoctorForm from "../components/DoctorForm";
+import moment from 'moment'
 const ApplyDoctor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,6 +34,10 @@ const ApplyDoctor = () => {
         {
           ...values,
           userId: user._id,
+          timings: [
+            moment(values.timings[0]).format('HH:mm'),
+            moment(values.timings[1]).format('HH:mm')
+          ]
         },
         {
           headers: {

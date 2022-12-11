@@ -1,17 +1,17 @@
 import React,{useEffect,useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { hideLoading, showLoading } from '../../Redux/alertsSlice'
 import DoctorForm from '../../components/DoctorForm';
-import Layout from '../../components/Layout'
+import Layout from '../../components/Layout';
+import moment from 'moment'
 
 const Profile = () => {
 
   const [doctor,setDoctor] = useState(null)
 const dispatch = useDispatch();
-// const {user} = useSelector((state)=>state.user);
 const navigate = useNavigate()
 const {userId} = useParams()
 
@@ -24,7 +24,11 @@ const handleFinish = async (values) => {
       "/api/doctor/update-doctor-profile",
       {
         ...values,
-        userId: userId
+        userId: userId,
+        timings: [
+          moment(values.timings[0]).format('HH:mm'),
+          moment(values.timings[1]).format('HH:mm')
+        ]
       },
       {
         headers: {
