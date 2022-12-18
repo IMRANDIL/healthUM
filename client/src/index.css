@@ -34,6 +34,10 @@ input:focus,.ant-picker{
     
 }
 
+.ant-pagination, .ant-table-pagination, .ant-table-pagination-right{
+    display:none !important;
+}
+
 .ant-picker{
     height: 40px !important;
     border-radius: 3px !important;
