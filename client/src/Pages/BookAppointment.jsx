@@ -58,7 +58,7 @@ const BookAppointment = () => {
        doctorByUserId()
       },[dispatch,doctorId])
 
-useEffect(()=>{
+
     const bookNow = async()=>{
         try {
             const response = await axios.post(`/api/doctor/book-appointment`,{
@@ -88,8 +88,8 @@ useEffect(()=>{
             );
         }
     }
-    bookNow()
-},[dispatch,date,user,doctorId,selectedTiming])
+    
+
 
   return (
     <Layout>
@@ -113,6 +113,7 @@ useEffect(()=>{
 <Button
     type='primary'
     className='mt-3'
+    onClick={bookNow}
     >Book Now</Button>
  </div>
     </Col>
