@@ -13,5 +13,5 @@ router.post(
 
 router.post('/mark-all-notifications-seen',authMiddleware, AuthClass.notificationController);
 router.post('/delete-all-seen-notifications',authMiddleware,AuthClass.deleteAllNotificationController)
-
+router.get('/get-all-approved-doctors',authMiddleware,AuthClass.getAllApprovedDoctors)
 module.exports = router;

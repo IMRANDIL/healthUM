@@ -207,6 +207,19 @@ class Auth {
     }
   }
 
+  getAllApprovedDoctors = async(req,res,next)=>{
+    try {
+      const approvedDoctors = await Doctor.find({status:'approved'});
+      res.status(200).json({
+        success:true,
+        approvedDoctors
+      })
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ msg: "Something went Wrong", success: false });
+    }
+  }
+
 }
 
 const AuthClass = new Auth();
