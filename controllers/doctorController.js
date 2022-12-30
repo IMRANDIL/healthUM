@@ -45,6 +45,28 @@ updateDoctor = async(req,res,next)=>{
         res.status(500).send({ msg: "Something went wrong!", success: false });
     }
     }
+
+
+    getDoctorByDoctorId = async(req,res,next)=>{
+        try {
+            const doctor = await Doctor.findOne({_id: req.body.doctorId});
+            if(!doctor){
+                return res.status(404).json({
+                    success:false,
+                    msg:'Doctor does not exist!'
+                })
+            }
+            res.status(200).json({
+                success:true,
+                msg:'doctor details fetched',
+                doctor
+        
+            })
+        } catch (error) {
+            console.log(error)
+        res.status(500).send({ msg: "Something went wrong!", success: false });
+        }
+    }
 };
 
 const doctorClass = new DoctorContr();

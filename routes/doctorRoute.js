@@ -4,6 +4,7 @@ const {authMiddleware} = require('../middlewares/authMiddleware')
 
 
 router.post('/get-doctor-info-by-userId',authMiddleware,doctorClass.getDoctorByuserId);
+router.post('/get-doctor-info-by-doctorId',authMiddleware,doctorClass.getDoctorByDoctorId);
 router.put('/update-doctor-profile',authMiddleware,doctorClass.updateDoctor)
 
 
