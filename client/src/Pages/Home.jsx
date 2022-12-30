@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import Layout from "../components/Layout";
 import Doctor from "../components/Doctor";
+import { Col, Row } from "antd";
 
 
 
@@ -47,9 +48,15 @@ fetchApprovedDoctors()
   return (
     <Layout>
       <h1>Home Page</h1>
+      <Row>
       {doctors && doctors.map((doctor)=>(
-        <Doctor key={doctor._id} doctor={doctor}/>
+        <Col span={8} xs={24} sm={24} lg={8}>
+         <Doctor key={doctor._id} doctor={doctor}/>
+        </Col>
+       
       ))}
+      </Row>
+     
     </Layout>
   );
 };
