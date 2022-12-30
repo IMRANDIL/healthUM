@@ -58,7 +58,35 @@ const BookAppointment = () => {
        doctorByUserId()
       },[dispatch,doctorId])
 
+useEffect(()=>{
+    const bookNow = async()=>{
+        try {
+            const response = await axios.post(`/api/doctor/book-appointment`,{
 
+            },
+            {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            )
+            dispatch(hideLoading());
+            if (response && response.data.success) {
+             setIsAvailable(true)
+              
+            } 
+        } catch (error) {
+            dispatch(hideLoading());
+            toast.error(
+              error.response.data.msg ? error.response.data.msg : error.message,
+              {
+                duration: 1000,
+              }
+            );
+        }
+    }
+    bookNow()
+},[dispatch])
 
   return (
     <Layout>
@@ -73,11 +101,16 @@ const BookAppointment = () => {
     <DatePicker format='DD-MM-YYYY'
     onChange={(value)=>setDate(moment(value).format('DD-MM-YYYY'))}
     />
-    <TimePicker.RangePicker format='HH:mm' className='mt-3'onChange={(value)=>setSelectedTiming(moment(value).format('HH:mm'))}/>
+    <TimePicker.RangePicker format='HH:mm' className='mt-3'onChange={(values)=>setSelectedTiming([moment(values[0]).format('HH:mm'),moment(values[1].format('HH:mm'))])}/>
     <Button
     type='primary'
     className='mt-3'
     >Check Availability</Button>
+
+<Button
+    type='primary'
+    className='mt-3'
+    >Book Now</Button>
  </div>
     </Col>
 </Row>
