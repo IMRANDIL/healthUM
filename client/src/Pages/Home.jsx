@@ -48,10 +48,10 @@ fetchApprovedDoctors()
   return (
     <Layout>
       <h1>Home Page</h1>
-      <Row>
+      <Row gutter={20}>
       {doctors && doctors.map((doctor)=>(
-        <Col span={8} xs={24} sm={24} lg={8}>
-         <Doctor key={doctor._id} doctor={doctor}/>
+        <Col span={8} xs={24} sm={24} lg={8} key={doctor._id}>
+         <Doctor doctor={doctor}/>
         </Col>
        
       ))}
