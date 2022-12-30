@@ -158,7 +158,7 @@ class Auth {
 
   notificationController = async(req,res,next)=>{
     try {
-      const user = await User.findOne({_id: req.body?.userId});
+      const user = await User.findOne({_id: req.body.userId});
       if(!user){
         return res.status(404).json({
           msg:'User not found',
@@ -186,7 +186,7 @@ class Auth {
 
   deleteAllNotificationController = async(req,res,next)=>{
     try {
-      const user = await User.findOne({_id: req.body?.userId});
+      const user = await User.findOne({_id: req.body.userId});
       if(!user){
         return res.status(404).json({
           msg:'User not found',
