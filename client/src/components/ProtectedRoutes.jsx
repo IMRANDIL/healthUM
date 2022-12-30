@@ -45,7 +45,7 @@ const ProtectedRoutes = (props) => {
       };
       getUser();
     }
-  }, [user, dispatch, token]);
+  }, [user, dispatch, token,navigate]);
 
   const decoedToken = token && jwt(token);
 
