@@ -68,6 +68,12 @@ label{
     background-color: grey;
   }
 
+  p{
+    color: rgba(0, 0, 0, 0.687) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
 
 
 
