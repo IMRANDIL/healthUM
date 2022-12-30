@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { hideLoading, showLoading } from '../Redux/alertsSlice'
@@ -18,7 +18,7 @@ const BookAppointment = () => {
     const navigate = useNavigate()
     const {doctorId} = useParams()
    
-
+    const { user} = useSelector((state) => state.user);
 
 
 
@@ -62,7 +62,10 @@ useEffect(()=>{
     const bookNow = async()=>{
         try {
             const response = await axios.post(`/api/doctor/book-appointment`,{
-
+                doctorId:doctorId,
+                date,
+                selectedTiming,
+                userId: user._id
             },
             {
                 headers: {
@@ -73,7 +76,7 @@ useEffect(()=>{
             dispatch(hideLoading());
             if (response && response.data.success) {
              setIsAvailable(true)
-              
+              toast.success(response.data.msg)
             } 
         } catch (error) {
             dispatch(hideLoading());
@@ -86,7 +89,7 @@ useEffect(()=>{
         }
     }
     bookNow()
-},[dispatch])
+},[dispatch,date,user,doctorId,selectedTiming])
 
   return (
     <Layout>
