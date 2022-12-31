@@ -112,6 +112,15 @@ const App = () => {
               </ProtectedRoutes>
             }
           />
+
+          <Route
+            path="/doctor/appointments"
+            element={
+              <ProtectedRoutes>
+                <Appointments />
+              </ProtectedRoutes>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
