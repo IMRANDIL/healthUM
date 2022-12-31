@@ -10,7 +10,32 @@ const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(() => {}, [dispatch]);
+  useEffect(() => {
+    const getAppointmentsData = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get(`/api/user/`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        dispatch(hideLoading());
+        if (response && response.data.success) {
+          setAppointments(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+        return toast.error(
+          error.response.data.msg ? error.response.data.msg : error.message,
+          {
+            duration: 1000,
+          }
+        );
+      }
+    };
+
+    getAppointmentsData();
+  }, [dispatch]);
 
   return (
     <Layout>
