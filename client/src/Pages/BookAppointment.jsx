@@ -72,6 +72,37 @@ const BookAppointment = () => {
       );
       dispatch(hideLoading());
       if (response && response.data.success) {
+        toast.success(response.data.msg);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      toast.error(
+        error.response.data.msg ? error.response.data.msg : error.message,
+        {
+          duration: 1000,
+        }
+      );
+    }
+  };
+
+  const checkAvailability = async () => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        `/api/doctor/appointment/check-availability`,
+        {
+          doctorId: doctorId,
+          date,
+          timing,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response && response.data.success) {
         setIsAvailable(true);
         toast.success(response.data.msg);
       }
@@ -114,13 +145,19 @@ const BookAppointment = () => {
                     setSelectedTiming(moment(value).format("HH:mm"))
                   }
                 />
-                <Button type="primary" className="mt-3">
+                <Button
+                  type="primary"
+                  className="mt-3"
+                  onClick={checkAvailability}
+                >
                   Check Availability
                 </Button>
 
-                <Button type="primary" className="mt-3" onClick={bookNow}>
-                  Book Now
-                </Button>
+                {isAvailable && (
+                  <Button type="primary" className="mt-3" onClick={bookNow}>
+                    Book Now
+                  </Button>
+                )}
               </div>
             </Col>
           </Row>

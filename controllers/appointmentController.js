@@ -19,6 +19,8 @@ class BookAppointment {
       }
 
       req.body.status = "pending";
+      req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+      req.body.timing = moment(req.body.timing, "HH:mm").toISOString();
       const newAppointment = new Appointment(req.body);
       await newAppointment.save();
       const findDoctor = await Doctor.findOne({ _id: req.body.doctorId });
@@ -73,7 +75,6 @@ class BookAppointment {
         doctorId,
         date,
         timing: { $gte: fromTime, $lte: toTime },
-        status: "approved",
       });
       if (appointments.length > 0) {
         return res.status(404).json({
