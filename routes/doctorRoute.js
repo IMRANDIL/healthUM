@@ -18,5 +18,10 @@ router.get(
   authMiddleware,
   doctorClass.getAppointmentsInfo
 );
+router.post(
+  "/approve-appointments",
+  authMiddleware,
+  doctorClass.approveAppointments
+);
 
 module.exports = router;

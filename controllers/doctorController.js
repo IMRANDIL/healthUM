@@ -87,6 +87,14 @@ class DoctorContr {
       res.status(500).send({ msg: "Something went wrong!", success: false });
     }
   };
+
+  approveAppointments = async (req, res, next) => {
+    try {
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ msg: "Something went wrong!", success: false });
+    }
+  };
 }
 
 const doctorClass = new DoctorContr();
