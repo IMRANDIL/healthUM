@@ -8,4 +8,10 @@ router.post(
   appointmentClass.setAppointment
 );
 
+router.post(
+  "/check-availability",
+  authMiddleware,
+  appointmentClass.checkAvailability
+);
+
 module.exports = router;
