@@ -12,7 +12,7 @@ const BookAppointment = () => {
   const [doctor, setDoctor] = useState(null);
   const [isAvailable, setIsAvailable] = useState(false);
   const [date, setDate] = useState();
-  const [selectedTiming, setSelectedTiming] = useState();
+  const [timing, setSelectedTiming] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { doctorId } = useParams();
@@ -58,7 +58,7 @@ const BookAppointment = () => {
         {
           doctorId: doctorId,
           date,
-          selectedTiming,
+          timing,
           userId: user._id,
         },
         {
@@ -104,14 +104,11 @@ const BookAppointment = () => {
                     setDate(moment(value).format("DD-MM-YYYY"))
                   }
                 />
-                <TimePicker.RangePicker
+                <TimePicker
                   format="HH:mm"
                   className="mt-3"
-                  onChange={(values) =>
-                    setSelectedTiming([
-                      moment(values[0]).format("HH:mm"),
-                      moment(values[1].format("HH:mm")),
-                    ])
+                  onChange={(value) =>
+                    setSelectedTiming(moment(value).format("HH:mm"))
                   }
                 />
                 <Button type="primary" className="mt-3">
