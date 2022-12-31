@@ -5,6 +5,17 @@ const User = require("../models/userModel");
 class BookAppointment {
   setAppointment = async (req, res, next) => {
     try {
+      const ifAlreadyApplied = await Appointment.findOne({
+        userId: req.body.userId,
+      });
+
+      if (ifAlreadyApplied) {
+        return res.status(400).json({
+          success: false,
+          msg: "You already applied for appointment!",
+        });
+      }
+
       req.body.status = "pending";
       const newAppointment = new Appointment(req.body);
       await newAppointment.save();
@@ -29,6 +40,10 @@ class BookAppointment {
         onClickPath: "/doctor/appointments",
       });
       await findDoctorUserId.save();
+      res.status(200).json({
+        success: true,
+        msg: "appointment for booking sent",
+      });
     } catch (error) {
       console.log(error);
       res.status(500).send({ msg: "Something went wrong!", success: false });
