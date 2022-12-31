@@ -42,8 +42,23 @@ const DoctorAppointments = () => {
     getAppointmentsData();
   }, [dispatch, isSuccess]);
 
-  const handleStatus = async () => {
+  const handleStatus = async (doctorId, userId, status) => {
     try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/api/doctor/approve-appointments",
+        { doctorId: doctorId, userId: userId, status: status },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response && response.data.success) {
+        toast.success(response.data.msg);
+        setIsSuccess(!isSuccess);
+      }
     } catch (error) {
       dispatch(hideLoading());
       return toast.error(
