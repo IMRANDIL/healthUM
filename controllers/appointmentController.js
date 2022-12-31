@@ -1,6 +1,6 @@
 const Appointment = require("../models/appointmentModel");
 
-class Appointment {}
+class BookAppointment {}
 
-const appointmentClass = new Appointment();
+const appointmentClass = new BookAppointment();
 module.exports = { appointmentClass };

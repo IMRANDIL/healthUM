@@ -54,7 +54,7 @@ const BookAppointment = () => {
   const bookNow = async () => {
     try {
       const response = await axios.post(
-        `/api/doctor/book-appointment`,
+        `/api/doctor/appointment/book-appointment`,
         {
           doctorId: doctorId,
           date,
