@@ -58,10 +58,10 @@ class BookAppointment {
     try {
       const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
       const fromTime = moment(req.body.timing, "HH:mm")
-        .subtract(60, "minutes")
+        .subtract(1, "hours")
         .toISOString();
       const toTime = moment(req.body.timing, "HH:mm")
-        .add(60, "minutes")
+        .add(1, "hours")
         .toISOString();
       const doctorId = req.body.doctorId;
       const findDoctor = await Doctor.findOne({ _id: doctorId });

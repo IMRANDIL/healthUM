@@ -76,6 +76,7 @@ const BookAppointment = () => {
       }
     } catch (error) {
       dispatch(hideLoading());
+      setIsAvailable(false);
       toast.error(
         error.response.data.msg ? error.response.data.msg : error.message,
         {
@@ -108,6 +109,7 @@ const BookAppointment = () => {
       }
     } catch (error) {
       dispatch(hideLoading());
+      setIsAvailable(false);
       toast.error(
         error.response.data.msg ? error.response.data.msg : error.message,
         {
