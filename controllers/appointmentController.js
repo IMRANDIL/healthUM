@@ -78,12 +78,12 @@ class BookAppointment {
       if (appointments.length > 0) {
         return res.status(404).json({
           success: false,
-          msg: "Appointment Not Available",
+          msg: "Appointments Not Available",
         });
       }
       res.status(200).json({
         success: true,
-        msg: "Appointment Available, Book now!",
+        msg: "Appointments Available, Book now!",
       });
     } catch (error) {
       console.log(error);
