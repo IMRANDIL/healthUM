@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate,useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../Redux/usersSlice";
 import jwt from "jwt-decode";
@@ -8,8 +8,8 @@ import axios from "axios";
 import { showLoading, hideLoading } from "../Redux/alertsSlice";
 const ProtectedRoutes = (props) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const { user} = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -33,19 +33,18 @@ const ProtectedRoutes = (props) => {
         } catch (error) {
           dispatch(hideLoading());
           localStorage.removeItem("token");
-          navigate('/login')
+          navigate("/login");
           return toast.error(
             error.response.data.msg ? error.response.data.msg : error.message,
             {
               duration: 1000,
             }
           );
-         
         }
       };
       getUser();
     }
-  }, [user, dispatch, token,navigate]);
+  }, [user, dispatch, token, navigate]);
 
   const decoedToken = token && jwt(token);
 
