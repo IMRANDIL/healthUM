@@ -114,7 +114,11 @@ const DoctorAppointments = () => {
               handleStatus(record._id, record.userId, record.status)
             }
           >
-            {record.status === "pending" ? "Approve" : "Reject"}
+            {record.status === "pending"
+              ? "Approve"
+              : record.status === "rejected"
+              ? "Approve"
+              : "Reject"}
           </h1>
         </div>
       ),
