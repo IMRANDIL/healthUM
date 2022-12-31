@@ -5,6 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { showLoading, hideLoading } from "../Redux/alertsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -36,6 +37,46 @@ const Appointments = () => {
 
     getAppointmentsData();
   }, [dispatch]);
+
+  const columns = [
+    {
+      title: "Id",
+      dataIndex: "_id",
+    },
+    {
+      title: "Doctor",
+      dataIndex: "name",
+      render: (text, record) => (
+        <span className="normal_text">
+          {record.doctorInfo.firstName} {record.doctorInfo.lastName}
+        </span>
+      ),
+    },
+    {
+      title: "Specialization",
+      dataIndex: "specialization",
+      render: (text, record) => (
+        <span className="normal_text">{record.doctorInfo.specialization}</span>
+      ),
+    },
+    {
+      title: "Phone",
+      dataIndex: "mobileNumber",
+      render: (text, record) => (
+        <span className="normal_text">{record.doctorInfo.mobileNumber}</span>
+      ),
+    },
+    {
+      title: "Date & Time",
+      dataIndex: "createdAt",
+      render: (text, record) => (
+        <span className="normal_text">
+          {moment(record.date).format("DD-MM-YYYY")}{" "}
+          {moment(record.timing).format("HH:mm")}
+        </span>
+      ),
+    },
+  ];
 
   return (
     <Layout>
