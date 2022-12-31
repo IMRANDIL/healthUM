@@ -1,6 +1,7 @@
 const Appointment = require("../models/appointmentModel");
 const Doctor = require("../models/doctorModel");
 const User = require("../models/userModel");
+const moment = require("moment");
 
 class BookAppointment {
   setAppointment = async (req, res, next) => {
@@ -53,6 +54,37 @@ class BookAppointment {
 
   checkAvailability = async (req, res, next) => {
     try {
+      const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+      const fromTime = moment(req.body.timing, "HH:mm")
+        .subtract(60, "minutes")
+        .toISOString();
+      const toTime = moment(req.body.timing, "HH:mm")
+        .add(60, "minutes")
+        .toISOString();
+      const doctorId = req.body.doctorId;
+      const findDoctor = await Doctor.findOne({ _id: doctorId });
+      if (!findDoctor) {
+        return res.status(404).json({
+          success: false,
+          msg: "Doctor does not exist!",
+        });
+      }
+      const appointments = await Appointment.find({
+        doctorId,
+        date,
+        timing: { $gte: fromTime, $lte: toTime },
+        status: "approved",
+      });
+      if (appointments.length > 0) {
+        return res.status(404).json({
+          success: false,
+          msg: "Appointment Not Available",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        msg: "Appointment Available, Book now!",
+      });
     } catch (error) {
       console.log(error);
       res.status(500).send({ msg: "Something went wrong!", success: false });
