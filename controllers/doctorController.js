@@ -89,9 +89,51 @@ class DoctorContr {
   };
 
   approveAppointments = async (req, res, next) => {
+    const { appointmentId, userId, status } = req.body;
     try {
+      const findUser = await User.findById(userId);
+      if (!findUser) {
+        return res.status(404).json({
+          success: false,
+          msg: "User does not exist!",
+        });
+      }
+
+      const appointment = await Appointment.findOne({ _id: appointmentId });
+      if (!appointment) {
+        return res.status(404).json({
+          success: false,
+          msg: "appointment does not exist!",
+        });
+      }
+
+      if (status === "pending" || status === "rejected") {
+        appointment.status = "approved";
+      } else {
+        appointment.status = "rejected";
+      }
+
+      await appointment.save();
+      const unseenNotifications = findUser.unseenNotifications;
+      unseenNotifications.push({
+        type: "appointment-request",
+        msg: `${appointment.userInfo.name}, your appointment is ${appointment.status} now.`,
+        data: {
+          doctorId: appointment.doctorInfo._id,
+          name: `${appointment.doctorInfo.firstName} ${appointment.doctorInfo.lastName}`,
+          mobileNumber: appointment.doctorInfo.mobileNumber,
+        },
+        onClickPath: "",
+      });
+
+      await User.findByIdAndUpdate(userId, {
+        unseenNotifications: unseenNotifications,
+      });
+      res.status(200).json({
+        success: true,
+        msg: `${appointment.userInfo.name}'s appointment ${appointment.status}!`,
+      });
     } catch (error) {
-      console.log(error);
       res.status(500).send({ msg: "Something went wrong!", success: false });
     }
   };
