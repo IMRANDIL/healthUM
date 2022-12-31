@@ -42,12 +42,12 @@ const DoctorAppointments = () => {
     getAppointmentsData();
   }, [dispatch, isSuccess]);
 
-  const handleStatus = async (doctorId, userId, status) => {
+  const handleStatus = async (appointmentId, userId, status) => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
         "/api/doctor/approve-appointments",
-        { doctorId: doctorId, userId: userId, status: status },
+        { appointmentId: appointmentId, userId: userId, status: status },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
