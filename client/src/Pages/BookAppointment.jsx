@@ -73,6 +73,7 @@ const BookAppointment = () => {
       dispatch(hideLoading());
       if (response && response.data.success) {
         toast.success(response.data.msg);
+        setIsAvailable(false);
       }
     } catch (error) {
       dispatch(hideLoading());
