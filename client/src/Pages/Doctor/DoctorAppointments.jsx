@@ -1,10 +1,10 @@
 import { Table } from "antd";
 import React, { useState, useEffect } from "react";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { showLoading, hideLoading } from "../Redux/alertsSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { showLoading, hideLoading } from "../../Redux/alertsSlice";
+import { useDispatch } from "react-redux";
 import moment from "moment";
 
 const DoctorAppointments = () => {
