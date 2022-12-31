@@ -1,6 +1,6 @@
 import React from "react";
 import "./Layout.css";
-import { Link, useLocation,useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
@@ -9,7 +9,7 @@ import { Badge } from "antd";
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const userMenu = [
@@ -43,10 +43,10 @@ const Layout = ({ children }) => {
     },
     {
       name: "Appointments",
-      path: "/appointments",
+      path: "/doctor/appointments",
       icon: "ri-file-list-line",
     },
-   
+
     {
       name: "Profile",
       path: `/doctor/profile/${user && user._id}`,
@@ -77,19 +77,24 @@ const Layout = ({ children }) => {
     },
   ];
 
-  const menuToBeRendered = user && user.isAdmin ? adminMenu : user && user.isDoctor ? doctorMenu : userMenu;
-  const role = user && user.isAdmin ? 'Admin' : user && user.isDoctor ? 'Doctor' : 'User'
+  const menuToBeRendered =
+    user && user.isAdmin
+      ? adminMenu
+      : user && user.isDoctor
+      ? doctorMenu
+      : userMenu;
+  const role =
+    user && user.isAdmin ? "Admin" : user && user.isDoctor ? "Doctor" : "User";
   const handleLogout = () => {
     dispatch(showLoading());
     toast.success("Logout successful!", {
       duration: 3000,
     });
     localStorage.removeItem("token");
-   dispatch({
+    dispatch({
       user: null,
     });
-   return dispatch(hideLoading());
-   
+    return dispatch(hideLoading());
   };
 
   return (
@@ -101,8 +106,8 @@ const Layout = ({ children }) => {
               <i className="ri-hospital-fill hospital-icon"></i>
             ) : (
               <>
-              <h1 className="logo-text">HEALTHM</h1>
-              <h2 className="role">{role}</h2>
+                <h1 className="logo-text">HEALTHM</h1>
+                <h2 className="role">{role}</h2>
               </>
             )}
           </div>
@@ -143,7 +148,10 @@ const Layout = ({ children }) => {
               onClick={() => setCollapsed(!collapsed)}
             ></i>
             <div className="d-flex align-items-center px-4">
-              <Badge count={user?.unseenNotifications.length} onClick={()=>navigate('/notifications')}>
+              <Badge
+                count={user?.unseenNotifications.length}
+                onClick={() => navigate("/notifications")}
+              >
                 <i className="ri-notification-line remix-icon px-3"></i>
               </Badge>
 
