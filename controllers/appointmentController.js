@@ -15,12 +15,20 @@ class BookAppointment {
           msg: "Doctor does not exist!",
         });
       }
-      findDoctor.unseenNotifications.push({
+      const doctorUserId = findDoctor.userId;
+      const findDoctorUserId = await User.findOne({ _id: doctorUserId });
+      if (!findDoctorUserId) {
+        return res.status(404).json({
+          success: false,
+          msg: "Doctor user does not exist!",
+        });
+      }
+      findDoctorUserId.unseenNotifications.push({
         type: "New appointment request",
-        msg: `A new appointment request has been made by ${req.body.user.name}`,
+        msg: `A new appointment request has been made by ${req.body.userInfo.name}`,
         onClickPath: "/doctor/appointments",
       });
-      await findDoctor.save();
+      await findDoctorUserId.save();
     } catch (error) {
       console.log(error);
       res.status(500).send({ msg: "Something went wrong!", success: false });
