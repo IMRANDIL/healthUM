@@ -54,17 +54,10 @@ const DoctorAppointments = () => {
       ),
     },
     {
-      title: "Specialization",
-      dataIndex: "specialization",
+      title: "Email",
+      dataIndex: "email",
       render: (text, record) => (
-        <span className="normal_text">{record.doctorInfo.specialization}</span>
-      ),
-    },
-    {
-      title: "Phone",
-      dataIndex: "mobileNumber",
-      render: (text, record) => (
-        <span className="normal_text">{record.doctorInfo.mobileNumber}</span>
+        <span className="normal_text">{record.userInfo.email}</span>
       ),
     },
     {
