@@ -1,5 +1,6 @@
 const Doctor = require("../models/doctorModel");
 const Appointment = require("../models/appointmentModel");
+const User = require("../models/userModel");
 
 class DoctorContr {
   getDoctorByuserId = async (req, res, next) => {
@@ -123,7 +124,7 @@ class DoctorContr {
           name: `${appointment.doctorInfo.firstName} ${appointment.doctorInfo.lastName}`,
           mobileNumber: appointment.doctorInfo.mobileNumber,
         },
-        onClickPath: "",
+        onClickPath: "/appointments",
       });
 
       await User.findByIdAndUpdate(userId, {
@@ -134,6 +135,7 @@ class DoctorContr {
         msg: `${appointment.userInfo.name}'s appointment ${appointment.status}!`,
       });
     } catch (error) {
+      console.log(error);
       res.status(500).send({ msg: "Something went wrong!", success: false });
     }
   };
