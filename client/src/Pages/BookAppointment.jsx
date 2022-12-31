@@ -59,6 +59,8 @@ const BookAppointment = () => {
           doctorId: doctorId,
           date,
           timing,
+          user,
+          doctor,
           userId: user._id,
         },
         {
