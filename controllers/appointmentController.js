@@ -7,6 +7,7 @@ class BookAppointment {
     try {
       const ifAlreadyApplied = await Appointment.findOne({
         userId: req.body.userId,
+        doctorId: req.body.doctorId,
       });
 
       if (ifAlreadyApplied) {
