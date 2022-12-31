@@ -9,6 +9,7 @@ import moment from "moment";
 
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [isSuccess, setIsSuccess] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,7 +40,20 @@ const DoctorAppointments = () => {
     };
 
     getAppointmentsData();
-  }, [dispatch]);
+  }, [dispatch, isSuccess]);
+
+  const handleStatus = async () => {
+    try {
+    } catch (error) {
+      dispatch(hideLoading());
+      return toast.error(
+        error.response.data.msg ? error.response.data.msg : error.message,
+        {
+          duration: 1000,
+        }
+      );
+    }
+  };
 
   const columns = [
     {
@@ -73,6 +87,22 @@ const DoctorAppointments = () => {
     {
       title: "Status",
       dataIndex: "status",
+    },
+    {
+      title: "Action",
+      dataIndex: "actions",
+      render: (text, record) => (
+        <div className="d-flex">
+          <h1
+            className="anchor"
+            onClick={() =>
+              handleStatus(record._id, record.userId, record.status)
+            }
+          >
+            {record.status === "pending" ? "Approve" : "Reject"}
+          </h1>
+        </div>
+      ),
     },
   ];
 
