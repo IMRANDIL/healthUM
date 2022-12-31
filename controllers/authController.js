@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Doctor = require("../models/doctorModel");
+const Appointment = require("../models/appointmentModel");
 
 class Auth {
   loginController = async (req, res, next) => {
@@ -141,7 +142,7 @@ class Auth {
         data: {
           doctorId: newDoctor._id,
           name: `${newDoctor.firstName} ${newDoctor.lastName}`,
-          email: isValidUser.email
+          email: isValidUser.email,
         },
         onClickPath: "/admin/doctors",
       });
@@ -156,70 +157,85 @@ class Auth {
     }
   };
 
-  notificationController = async(req,res,next)=>{
+  notificationController = async (req, res, next) => {
     try {
-      const user = await User.findOne({_id: req.body.userId});
-      if(!user){
+      const user = await User.findOne({ _id: req.body.userId });
+      if (!user) {
         return res.status(404).json({
-          msg:'User not found',
-          success:false
-        })
+          msg: "User not found",
+          success: false,
+        });
       }
-   
-     const seenNotifications = user.seenNotifications;
-     const unseenNotifications = user.unseenNotifications;
-     user.seenNotifications = [...seenNotifications,...unseenNotifications];
-     user.unseenNotifications = [];
+
+      const seenNotifications = user.seenNotifications;
+      const unseenNotifications = user.unseenNotifications;
+      user.seenNotifications = [...seenNotifications, ...unseenNotifications];
+      user.unseenNotifications = [];
 
       const updatedUser = await user.save();
       updatedUser.password = undefined;
       res.status(200).json({
-        success:true,
-        msg:'All notifications marked as seen',
-       updatedUser
-      })
+        success: true,
+        msg: "All notifications marked as seen",
+        updatedUser,
+      });
     } catch (error) {
       console.log(error);
       res.status(500).json({ msg: "Something went Wrong", success: false });
     }
-  }
+  };
 
-  deleteAllNotificationController = async(req,res,next)=>{
+  deleteAllNotificationController = async (req, res, next) => {
     try {
-      const user = await User.findOne({_id: req.body.userId});
-      if(!user){
+      const user = await User.findOne({ _id: req.body.userId });
+      if (!user) {
         return res.status(404).json({
-          msg:'User not found',
-          success:false
-        })
+          msg: "User not found",
+          success: false,
+        });
       }
-     user.seenNotifications = [];
-     const updatedUser = await user.save();
-     updatedUser.password = undefined;
+      user.seenNotifications = [];
+      const updatedUser = await user.save();
+      updatedUser.password = undefined;
       res.status(200).json({
-        success:true,
-        msg:'All notifications deleted',
-        updatedUser
-      })
+        success: true,
+        msg: "All notifications deleted",
+        updatedUser,
+      });
     } catch (error) {
       console.log(error);
       res.status(500).json({ msg: "Something went Wrong", success: false });
     }
-  }
+  };
 
-  getAllApprovedDoctors = async(req,res,next)=>{
+  getAllApprovedDoctors = async (req, res, next) => {
     try {
-      const approvedDoctors = await Doctor.find({status:'approved'});
+      const approvedDoctors = await Doctor.find({ status: "approved" });
       res.status(200).json({
-        success:true,
-        approvedDoctors
-      })
+        success: true,
+        approvedDoctors,
+      });
     } catch (error) {
       console.log(error);
       res.status(500).json({ msg: "Something went Wrong", success: false });
     }
-  }
+  };
 
+  getAppointmentsInfo = async (req, res, next) => {
+    try {
+      const appointmentsInfo = await Appointment.find({
+        userId: req.user._id,
+      });
+      res.status(200).json({
+        success: true,
+        data: appointmentsInfo,
+        msg: "Appointments info fetched",
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ msg: "Something went Wrong", success: false });
+    }
+  };
 }
 
 const AuthClass = new Auth();

@@ -15,11 +15,14 @@ const Appointments = () => {
     const getAppointmentsData = async () => {
       try {
         dispatch(showLoading());
-        const response = await axios.get(`/api/user/`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          `/api/user/get-appointments-by-userId`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         dispatch(hideLoading());
         if (response && response.data.success) {
           setAppointments(response.data.data);
@@ -75,6 +78,10 @@ const Appointments = () => {
           {moment(record.timing).format("HH:mm")}
         </span>
       ),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
     },
   ];
 
