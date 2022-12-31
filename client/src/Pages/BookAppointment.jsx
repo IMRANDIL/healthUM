@@ -53,6 +53,7 @@ const BookAppointment = () => {
 
   const bookNow = async () => {
     try {
+      dispatch(showLoading());
       const response = await axios.post(
         `/api/doctor/appointment/book-appointment`,
         {
