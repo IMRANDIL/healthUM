@@ -63,7 +63,30 @@ class DoctorContr {
     }
   };
 
-  getAppointmentsInfo = async (req, res, next) => {};
+  getAppointmentsInfo = async (req, res, next) => {
+    try {
+      const findDoctorId = await Doctor.findOne({ userId: req.user._id });
+      if (!findDoctorId) {
+        return res.status(404).json({
+          success: false,
+          msg: "Doctor does not exist!",
+        });
+      }
+
+      const appointmentInfo = await Appointment.find({
+        doctorId: findDoctorId._id,
+      });
+
+      res.status(200).json({
+        success: true,
+        data: appointmentInfo,
+        msg: "appointments info fetched",
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ msg: "Something went wrong!", success: false });
+    }
+  };
 }
 
 const doctorClass = new DoctorContr();
