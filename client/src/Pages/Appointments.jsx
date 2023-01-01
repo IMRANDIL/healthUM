@@ -16,7 +16,7 @@ const Appointments = () => {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          `/api/user/get-appointments-by-userId`,
+          `https://server-healthum.onrender.com/api/user/get-appointments-by-userId`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

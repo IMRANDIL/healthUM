@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../Redux/usersSlice";
 import jwt from "jwt-decode";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import axios from "axios";
 import { showLoading, hideLoading } from "../Redux/alertsSlice";
 const ProtectedRoutes = (props) => {
@@ -18,7 +18,7 @@ const ProtectedRoutes = (props) => {
         try {
           dispatch(showLoading());
           const response = await axios.post(
-            "/api/user/getUserInfo",
+            "https://server-healthum.onrender.com/api/user/getUserInfo",
             {},
             {
               headers: {
@@ -34,12 +34,12 @@ const ProtectedRoutes = (props) => {
           dispatch(hideLoading());
           localStorage.removeItem("token");
           navigate("/login");
-          return toast.error(
-            error.response.data.msg ? error.response.data.msg : error.message,
-            {
-              duration: 1000,
-            }
-          );
+          // return toast.error(
+          //   error.response.data.msg ? error.response.data.msg : error.message,
+          //   {
+          //     duration: 1000,
+          //   }
+          // );
         }
       };
       getUser();

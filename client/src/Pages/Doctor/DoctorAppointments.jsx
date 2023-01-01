@@ -17,7 +17,7 @@ const DoctorAppointments = () => {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          `/api/doctor/get-appointments-by-doctorId`,
+          `https://server-healthum.onrender.com/api/doctor/get-appointments-by-doctorId`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -46,7 +46,7 @@ const DoctorAppointments = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/approve-appointments",
+        "https://server-healthum.onrender.com/api/doctor/approve-appointments",
         { appointmentId: appointmentId, userId: userId, status: status },
         {
           headers: {

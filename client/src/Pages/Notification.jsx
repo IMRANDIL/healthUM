@@ -17,7 +17,7 @@ const Notification = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/mark-all-notifications-seen",
+        "https://server-healthum.onrender.com/api/user/mark-all-notifications-seen",
         { userId: user._id },
         {
           headers: {
@@ -49,7 +49,7 @@ const Notification = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/delete-all-seen-notifications",
+        "https://server-healthum.onrender.com/api/user/delete-all-seen-notifications",
         { userId: user._id },
         {
           headers: {

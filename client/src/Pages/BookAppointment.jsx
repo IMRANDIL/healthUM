@@ -24,7 +24,7 @@ const BookAppointment = () => {
       try {
         dispatch(showLoading());
         const response = await axios.post(
-          "/api/doctor/get-doctor-info-by-doctorId",
+          "https://server-healthum.onrender.com/api/doctor/get-doctor-info-by-doctorId",
           {
             doctorId: doctorId,
           },
@@ -61,7 +61,7 @@ const BookAppointment = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        `/api/doctor/appointment/book-appointment`,
+        `https://server-healthum.onrender.com/api/doctor/appointment/book-appointment`,
         {
           doctorId: doctorId,
           date,
@@ -104,7 +104,7 @@ const BookAppointment = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        `/api/doctor/appointment/check-availability`,
+        `https://server-healthum.onrender.com/api/doctor/appointment/check-availability`,
         {
           doctorId: doctorId,
           date,

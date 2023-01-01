@@ -6,7 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { hideLoading, showLoading } from "../Redux/alertsSlice";
 import DoctorForm from "../components/DoctorForm";
-import moment from 'moment'
+import moment from "moment";
 const ApplyDoctor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,14 +30,14 @@ const ApplyDoctor = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/apply-doctor-account",
+        "https://server-healthum.onrender.com/api/user/apply-doctor-account",
         {
           ...values,
           userId: user._id,
           timings: [
-            moment(values.timings[0]).format('HH:mm'),
-            moment(values.timings[1]).format('HH:mm')
-          ]
+            moment(values.timings[0]).format("HH:mm"),
+            moment(values.timings[1]).format("HH:mm"),
+          ],
         },
         {
           headers: {
@@ -69,7 +69,7 @@ const ApplyDoctor = () => {
     <Layout>
       <h1 className="page-title">Apply Doctor</h1>
       <hr />
-      <DoctorForm handleFinish={handleFinish}/>
+      <DoctorForm handleFinish={handleFinish} />
     </Layout>
   );
 };

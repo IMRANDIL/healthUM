@@ -16,7 +16,10 @@ const Login = () => {
     }
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/user/login", values);
+      const response = await axios.post(
+        "https://server-healthum.onrender.com/api/user/login",
+        values
+      );
       dispatch(hideLoading());
       if (response && response.data.success) {
         toast.success(response.data.msg);

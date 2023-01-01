@@ -26,11 +26,14 @@ const Doctors = () => {
     const getAllDoctors = async () => {
       try {
         dispatch(showLoading());
-        const response = await axios.get(`/api/admin/allDoctors?page=${page}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          `https://server-healthum.onrender.com/api/admin/allDoctors?page=${page}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         dispatch(hideLoading());
         if (response && response.data.success) {
           setPages(response.data.pages);
@@ -54,7 +57,7 @@ const Doctors = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/admin/approve-doctor",
+        "https://server-healthum.onrender.com/api/admin/approve-doctor",
         { doctorId: doctorId, userId: userId, status: status },
         {
           headers: {

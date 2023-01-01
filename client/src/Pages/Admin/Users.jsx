@@ -25,11 +25,14 @@ const Users = () => {
     const getAllUsers = async () => {
       try {
         dispatch(showLoading());
-        const response = await axios.get(`/api/admin/allUsers?page=${page}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          `https://server-healthum.onrender.com/api/admin/allUsers?page=${page}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         dispatch(hideLoading());
         if (response && response.data.success) {
           setPages(response.data.pages);
