@@ -73,7 +73,7 @@
     box-shadow: 0 0 2px gray;
     width: 100%;
     padding:15px;
-    overflow-x: scroll !important;
+    /* overflow-x: scroll !important; */
 
     
 }
