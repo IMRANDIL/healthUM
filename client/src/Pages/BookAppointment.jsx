@@ -74,6 +74,7 @@ const BookAppointment = () => {
       if (response && response.data.success) {
         toast.success(response.data.msg);
         setIsAvailable(false);
+        navigate("/appointments");
       }
     } catch (error) {
       dispatch(hideLoading());
@@ -106,8 +107,6 @@ const BookAppointment = () => {
       dispatch(hideLoading());
       if (response && response.data.success) {
         setIsAvailable(true);
-        setDate();
-        setSelectedTiming();
         toast.success(response.data.msg);
       }
     } catch (error) {
