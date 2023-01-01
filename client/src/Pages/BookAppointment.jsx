@@ -128,12 +128,36 @@ const BookAppointment = () => {
             {doctor.firstName} {doctor.lastName}
           </h1>
           <hr />
-          <Row gutter={20}>
+          <Row gutter={20} className="mt-5" align="middle" justify="center">
+            <Col span={8} sm={24} xs={24} lg={8}>
+              <img
+                src="https://img.freepik.com/premium-vector/red-book-now-label-modern-style-white-background_123447-428.jpg?w=2000"
+                alt="booking-img"
+                width={400}
+                height={400}
+              />
+            </Col>
             <Col span={8} sm={24} xs={24} lg={8}>
               <h1 className="normal_text">
                 <b>Timings : </b>
                 {doctor.timings[0]} - {doctor.timings[1]}
               </h1>
+              <p className="card_text">
+                <b>Experience : </b>
+                {doctor.experience} Yrs
+              </p>
+              <p className="card_text">
+                <b>Mobile Number : </b>
+                {doctor.mobileNumber}
+              </p>
+              <p className="card-text">
+                <b>Address : </b>
+                {doctor.address}
+              </p>
+              <p className="card-text">
+                <b>Fees : </b>
+                {doctor.feePerConsultation} Rupees
+              </p>
               <div className="d-flex flex-column pt-2">
                 <DatePicker
                   format="DD-MM-YYYY"
@@ -162,25 +186,6 @@ const BookAppointment = () => {
                   </Button>
                 )}
               </div>
-            </Col>
-            <Col span={8} sm={24} xs={24} lg={8}>
-              <hr />
-              <p className="card_text">
-                <b>Experience : </b>
-                {doctor.experience} Yrs
-              </p>
-              <p className="card_text">
-                <b>Mobile Number : </b>
-                {doctor.mobileNumber}
-              </p>
-              <p className="card-text">
-                <b>Address : </b>
-                {doctor.address}
-              </p>
-              <p className="card-text">
-                <b>Fees : </b>
-                {doctor.feePerConsultation} Rupees
-              </p>
             </Col>
           </Row>
         </div>
