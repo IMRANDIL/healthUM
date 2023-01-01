@@ -6,6 +6,13 @@ const moment = require("moment");
 class BookAppointment {
   setAppointment = async (req, res, next) => {
     try {
+      if (!(req.body.date || req.body.timing)) {
+        return res.status(400).json({
+          success: false,
+          msg: "Please fill the date and timings!",
+        });
+      }
+
       const ifAlreadyApplied = await Appointment.findOne({
         userId: req.body.userId,
         doctorId: req.body.doctorId,
@@ -56,6 +63,12 @@ class BookAppointment {
 
   checkAvailability = async (req, res, next) => {
     try {
+      if (!(req.body.date || req.body.timing)) {
+        return res.status(400).json({
+          success: false,
+          msg: "Please fill all the fields!",
+        });
+      }
       const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
       const fromTime = moment(req.body.timing, "HH:mm")
         .subtract(1, "hours")
