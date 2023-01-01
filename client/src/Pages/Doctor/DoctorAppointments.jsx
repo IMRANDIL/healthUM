@@ -128,6 +128,7 @@ const DoctorAppointments = () => {
   return (
     <Layout>
       <h1 className="page-header">Appointments</h1>
+      <hr />
       <Table columns={columns} dataSource={appointments} />
     </Layout>
   );
