@@ -52,6 +52,12 @@ const BookAppointment = () => {
   }, [dispatch, doctorId]);
 
   const bookNow = async () => {
+    if (!(date || timing)) {
+      return toast.error("Please select date and timings", {
+        duration: 1000,
+      });
+    }
+
     try {
       dispatch(showLoading());
       const response = await axios.post(
@@ -89,6 +95,12 @@ const BookAppointment = () => {
   };
 
   const checkAvailability = async () => {
+    if (!(date || timing)) {
+      return toast.error("Please select date and timings", {
+        duration: 1000,
+      });
+    }
+
     try {
       dispatch(showLoading());
       const response = await axios.post(
