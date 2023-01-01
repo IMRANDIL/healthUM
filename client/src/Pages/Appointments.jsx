@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { showLoading, hideLoading } from "../Redux/alertsSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import moment from "moment";
 
 const Appointments = () => {
@@ -87,7 +87,7 @@ const Appointments = () => {
 
   return (
     <Layout>
-      <h1 className="page-header">Appointments</h1>
+      <h1 className="page-title">Appointments</h1>
       <Table columns={columns} dataSource={appointments} />
     </Layout>
   );
