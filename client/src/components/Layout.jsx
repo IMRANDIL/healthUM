@@ -145,7 +145,7 @@ const Layout = ({ children }) => {
                 <i className="ri-notification-line remix-icon px-3"></i>
               </Badge>
 
-              <Link to="/profile" className="anchor-profile">
+              <Link to="/" className="anchor-profile">
                 {user && user?.name ? user?.name[0] + user?.name[1] : "??"}
               </Link>
             </div>
