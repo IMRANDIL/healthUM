@@ -106,6 +106,8 @@ const BookAppointment = () => {
       dispatch(hideLoading());
       if (response && response.data.success) {
         setIsAvailable(true);
+        setDate();
+        setSelectedTiming();
         toast.success(response.data.msg);
       }
     } catch (error) {
@@ -155,31 +157,38 @@ const BookAppointment = () => {
                 {doctor.address}
               </p>
               <p className="card-text">
+                <b>Website : </b>
+                {doctor.website}
+              </p>
+              <p className="card-text">
                 <b>Fees : </b>
                 {doctor.feePerConsultation} Rupees
               </p>
-              <div className="d-flex flex-column pt-2">
+              <div className="d-flex flex-column pt-2 mt-2">
                 <DatePicker
                   format="DD-MM-YYYY"
-                  onChange={(value) =>
-                    setDate(moment(value).format("DD-MM-YYYY"))
-                  }
+                  onChange={(value) => {
+                    setIsAvailable(false);
+                    setDate(moment(value).format("DD-MM-YYYY"));
+                  }}
                 />
                 <TimePicker
                   format="HH:mm"
                   className="mt-3"
-                  onChange={(value) =>
-                    setSelectedTiming(moment(value).format("HH:mm"))
-                  }
+                  onChange={(value) => {
+                    setIsAvailable(false);
+                    setSelectedTiming(moment(value).format("HH:mm"));
+                  }}
                 />
-                <Button
-                  type="primary"
-                  className="mt-3"
-                  onClick={checkAvailability}
-                >
-                  Check Availability
-                </Button>
-
+                {!isAvailable && (
+                  <Button
+                    type="primary"
+                    className="mt-3"
+                    onClick={checkAvailability}
+                  >
+                    Check Availability
+                  </Button>
+                )}
                 {isAvailable && (
                   <Button type="primary" className="mt-3" onClick={bookNow}>
                     Book Now

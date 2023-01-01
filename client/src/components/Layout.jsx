@@ -28,11 +28,6 @@ const Layout = ({ children }) => {
       path: "/apply-doctor",
       icon: "ri-hospital-line",
     },
-    {
-      name: "Profile",
-      path: "/profile",
-      icon: "ri-file-user-line",
-    },
   ];
 
   const doctorMenu = [
@@ -69,11 +64,6 @@ const Layout = ({ children }) => {
       name: "Doctors",
       path: "/admin/doctors",
       icon: "ri-hospital-line",
-    },
-    {
-      name: "Profile",
-      path: "/admin/profile",
-      icon: "ri-file-user-line",
     },
   ];
 
